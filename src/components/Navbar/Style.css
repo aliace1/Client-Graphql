@@ -1,0 +1,37 @@
+/*navbarDisplayFlex: {*/
+/*    display: `flex`,*/
+/*    justifyContent: `space-between`,*/
+/*},*/
+/*navListDisplayFlex: {*/
+/*    display: `flex`,*/
+/*    justifyContent: `space-between`*/
+/*},*/
+/*linkText: {*/
+/*    textDecoration: `none`,*/
+/*    color: `white`*/
+/*},*/
+/*title: {*/
+/*    flexGrow: 1,*/
+/*    margin:"auto"*/
+/*},*/
+
+.navbarDisplayFlex {
+    display: flex;
+    justify-content: space-between;
+}
+.navListDisplayFlex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.linkText {
+    text-decoration: none;
+    color: white;
+}
+.title  {
+    flex-grow: 1;
+    margin: auto;
+}
+ajouter {
+    align-items: center;
+}

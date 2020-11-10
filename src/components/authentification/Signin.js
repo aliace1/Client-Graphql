@@ -1,0 +1,101 @@
+import React, {Component} from 'react';
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import "./Style.css"
+import theme from "../../Theme";
+import axios from "axios";
+
+class Signin extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            password: '',
+            showPassword: false,
+        }
+    }
+    onSubmit(){
+        const {email, password} = this.state
+        axios.post('http://localhost:8000/graphql',null, { 
+            params: {
+                query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token} }"
+              }
+        }).then(({data:{data:{login: {token}}}}) => {
+            localStorage.setItem('Token', token)
+            this.props.history.push('/')
+        }).catch(err => {
+            console.log({err});
+        })
+    }
+
+    onCHange (e) {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    handleClickShowPassword(){
+        this.setState({showPassword: !this.state.showPassword});
+    }
+    handleMouseDownPassword(event) {
+        event.preventDefault();
+      };
+
+    render() {
+        return (
+            <div theme = {theme}>
+                <Paper elevation={2} className={'papper'}>
+                    <Grid container spacing={2}>
+                        <Typography variant={'h5'} className={'titre'}>
+                            Connexion
+                        </Typography>
+                        <Grid item xs={12}>
+                            <TextField 
+                            id="outlined-basic" 
+                            label="Adresse e-mail" variant="outlined" type={'name'} required fullWidth
+                            name='email'
+                            onChange={this.onCHange.bind(this)}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField id="outlined-basic" 
+                            label="Mot de passe" variant="outlined" 
+                            type={this.showPassword ? 'text' : 'password'} required fullWidth
+                            name='password'
+                            onChange={this.onCHange.bind(this)}
+                            >
+                                <InputAdornment position="end">
+                                    <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={this.handleClickShowPassword.bind(this)}
+                                    onMouseDown={this.handleMouseDownPassword.bind(this)}
+                                    >
+                                    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                                
+                            </TextField>
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                            <FormControlLabel control={<Checkbox name="checkedC" />} label="Maintenir la connexion" />
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                            <Button variant="contained" onClick={this.onSubmit.bind(this)} color={"secondary"} fullWidth>
+                                Se connecter
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </div>
+        );
+    }
+}
+
+export default Signin;

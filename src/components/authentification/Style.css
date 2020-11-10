@@ -1,0 +1,15 @@
+.papper {
+    flex-grow: 1;
+    max-width: 500px;
+    margin:auto;
+    justify-content:center;
+    padding: 1rem;
+    elevation: lower;
+}
+
+.titre {
+    align-self: center;
+}
+/*.formControl {*/
+/*    margin: auto;*/
+/*}*/
