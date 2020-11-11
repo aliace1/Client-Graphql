@@ -9,6 +9,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button"
 import axios from "axios";
+import Navbar from "../Navbar/Navbar";
 
 class AjoutTp extends Component {
     constructor(props){
@@ -18,7 +19,7 @@ class AjoutTp extends Component {
             titre:'',
             matiere:'',
             contenu:'',
-            date:'',
+            date:new Date(),
             creator:' ',
             creators: []
         }
@@ -55,8 +56,16 @@ class AjoutTp extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
-        .then((e) => {
-            console.log(e);
+        .then(({data:{data:{createDevoir}}}) => {
+            // console.log(data);
+            this.setState({
+                titre:'',
+                matiere:'',
+                contenu:'',
+                date:new Date(),
+                creator:creators[0]
+            })
+            this.props.history.push('/Tp')
         })
         .catch(err => {
             console.log({err});
@@ -66,13 +75,13 @@ class AjoutTp extends Component {
 
     updateData = (event, editor) => {
         this.setState({
-            text:editor.getData(),
+            contenu:editor.getData(),
 
         })
     }
 
     onChange(e) {
-        console.log(e);
+        // console.log(e);
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -80,9 +89,11 @@ class AjoutTp extends Component {
         // console.log(this.props);
         const { titre, matiere, contenu, date, creator, creators } = this.state;
         return (
+            <div>
+            <Navbar history = {this.props.history} />
             <Container spacing={2} >
                 <Typography variant="h5">
-                    Ajout cours
+                    Ajout TP
                 </Typography>
                 <br/>
                 <Grid container spacing={2}>
@@ -104,8 +115,8 @@ class AjoutTp extends Component {
                         onChange={this.onChange.bind(this)}
                         >
                             {
-                                creators && creators.map(e => {
-                                    return<MenuItem value={e._id} key={e._id}>
+                                creators && creators.map((e, index) => {
+                                    return<MenuItem value={e._id} key={index}>
                                     {e.nom}
                                 </MenuItem>
                                 })
@@ -126,8 +137,8 @@ class AjoutTp extends Component {
                     <Grid item md={12} xs={12}>
                         <CKEditor
                             editor={ClassicEditor}
-                            data={this.state.text}
-                            onChange={this.updateData}
+                            data={this.state.contenu}
+                            onChange={this.updateData.bind(this)}
                             name='contenu'
                             value={contenu}
                         />
@@ -146,6 +157,7 @@ class AjoutTp extends Component {
 
 
             </Container>
+            </div>
         );
     }
 }

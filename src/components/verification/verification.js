@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import axios from 'axios';
+import Navbar from "../Navbar/Navbar";
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -51,7 +52,7 @@ class Verification extends Component {
                 Authorization: 'Bearer '+ localStorage.getItem('Token')
             }
         }).then(e => {
-            console.log(e.data.data);
+            // console.log(e.data.data);
             this.setState({
                 stocks:e.data.data.classes
             })
@@ -68,7 +69,7 @@ class Verification extends Component {
     getData(){
         axios.post('http://localhost:8000/graphql', null, {
             params:{
-                query:"query {users {nom, prenom, matricule, email, creator, isAjout} }"
+                query:"query {users {_id, nom, prenom, matricule, email, creator, isAjout} }"
             },
             headers: {
                 Authorization: 'Bearer '+ localStorage.getItem('Token')
@@ -83,19 +84,38 @@ class Verification extends Component {
         .catch(e=>console.log({e}))
     }
 
-    // onClick(id){
-    //     const verif = this.state.datas.filter(e => {
-    //         return e._id === id
-    //     })
-    //     if(verif.length > 0){
-
-    //     }
-    // }
+    onClick(id){
+        const verif = this.state.datas.filter(e => {
+            return e._id === id
+        })
+        if(verif.length > 0){
+            const a = verif[0]
+            console.log(a);
+            const isAj = a.isAjout==='y'?'n':'y'
+            const query = "mutation{ updateUser(userId:\""+a._id+"\",nom:\""+a.nom+"\",prenom:\""+a.prenom+"\",matricule:\""+a.matricule+"\",email:\""+a.email+"\",isAdmin:\""+a.isAdmin+"\",isAjout:\""+isAj+"\"){nom prenom matricule email password isAjout creator}}"
+            // console.log(query);
+            axios.post('http://localhost:8000/graphql', null, {
+                params:{
+                    query
+                }
+            })
+            .then(({data:{data:{updateUser}}}) => {
+                // console.log(data);
+                this.setState({
+                    datas:[...this.state.datas.filter(e => e._id !== id), updateUser]
+                })
+            })
+            .catch(err => {
+                console.log({err});
+            })
+        }
+    }
 
     render() {
         const { datas } = this.state;
         return (
             <div className={'test'}>
+                <Navbar history = {this.props.history} />
                 <Paper>
                     <TableContainer /*component={'papper'}*/>
                         <Table stickyHeader className={"classes.table"} aria-label="customized table">
@@ -122,13 +142,12 @@ class Verification extends Component {
                                                 <StyledTableCell align="left"> {this.setFilter(e.creator)} </StyledTableCell>
                                                 <StyledTableCell align="left">
                                                     <Grid>{
-                                                        e.isAjout === "y"?<Button variant="contained" color="primary" fullWidth>
+                                                        e.isAjout === "y"?<Button variant="contained" color="primary" fullWidth onClick={this.onClick.bind(this, e._id)}>
                                                         Desactiver
-                                                    </Button>:<Button variant="contained" color="primary" fullWidth> 
+                                                    </Button>:<Button variant="contained" color="primary" fullWidth onClick={this.onClick.bind(this, e._id)}> 
                                                             Activer
                                                         </Button>
                                                     }
-                                                    {/* onClick={this.onClick.bind(this, e._id)}> */}
                                                         
                                                     </Grid>
                                                 </StyledTableCell>

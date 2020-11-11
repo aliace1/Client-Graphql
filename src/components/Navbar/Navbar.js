@@ -12,6 +12,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
 
@@ -38,19 +39,46 @@ const useStyles = makeStyles({
     }
 });
 
-const navLinks = [
+const nav1 = [
     { title: `Accueil`, path: `/` , icons:""},
     { title: `Cours`, path: `/Cours` , icons:"" },
     { title: `Travaux pratique`, path: `/Tp` , icons:""},
     { title: `Livres`, path: `/Livres` , icons:"" },
     { title: `Membres`, path: `/Membres` , icons:"" },
-    { title: `Visio-conférence`, path: `/visio` , icons:"" },
-    { title: `Verificcation`, path: `/Verification`, icon:"" }
+    { title: `Verification`, path: `/Verification`, icon:"" },
 ];
 
+let navLinks = [
+    { title: `Accueil`, path: `/` , icons:""},
+    { title: `Cours`, path: `/Cours` , icons:"" },
+    { title: `Travaux pratique`, path: `/Tp` , icons:""},
+    { title: `Livres`, path: `/Livres` , icons:"" }
+];
 
-const NavBar = () => {
+function onSubmit(history){
+    // console.log(props);
+    localStorage.removeItem('Token')
+    localStorage.removeItem('isAdmin')
+    history.push('/Signin')
+}
+
+let isConnecter = false;
+
+const NavBar = ({history}) => {
+    // console.log(props);
     const classes = useStyles();
+    if(localStorage.hasOwnProperty('isAdmin')){
+        if(localStorage.getItem('isAdmin')==='y'){
+            navLinks = nav1
+        }
+    }
+
+    if(localStorage.hasOwnProperty('Token')){
+        isConnecter = true
+    }
+
+
+
 
     const dialog = () => {
         return (
@@ -85,7 +113,8 @@ const NavBar = () => {
                                     aria-labelledby="main navigation"
                                     className={classes.navListDisplayFlex}
                                 >
-                                    {navLinks.map(({ title, path }) => (
+                                    { 
+                                    navLinks.map(({ title, path }) => (
                                         <Link to={path} key={title} className={classes.linkText}>
                                             <ListItem button>
                                                 <ListItemText primary={title}/>
@@ -101,8 +130,17 @@ const NavBar = () => {
                                     elevation={5}
                                     onClick{...dialog}
                                 >
-                                    <AccountCircleIcon/>
+                                    <Link to="/Signup">
+                                        <AccountCircleIcon/>
+                                    </Link>
                                 </IconButton>
+                                {
+                                    !isConnecter?<Button onClick={()=>onSubmit(history)}>
+                                    Deconnexion
+                                </Button>:<Button>
+                                    Connexion
+                                </Button>
+                                }
                             <Hidden mdUp>
                                 <SideDrawer navLinks={navLinks} />
                             </Hidden>

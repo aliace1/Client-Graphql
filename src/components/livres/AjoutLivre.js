@@ -9,12 +9,13 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button"
 import axios from "axios";
+import Navbar from "../Navbar/Navbar";
+
 
 class AjoutLivre extends Component {
     constructor(props){
         super(props);
         this.state = {
-            text:'',
             titre:'',
             matiere:'',
             contenu:'',
@@ -55,8 +56,16 @@ class AjoutLivre extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
-        .then((e) => {
-            console.log(e);
+        .then(({data:{data:{createLivre}}}) => {
+            // console.log(data);
+            this.setState({
+                titre:'',
+                matiere:'',
+                contenu:'',
+                date:new Date(),
+                creator:creators[0]
+            })
+            this.props.history.push('/Livres')
         })
         .catch(err => {
             console.log({err});
@@ -66,13 +75,13 @@ class AjoutLivre extends Component {
 
     updateData = (event, editor) => {
         this.setState({
-            text:editor.getData(),
+            contenu:editor.getData(),
 
         })
     }
 
     onChange(e) {
-        console.log(e);
+        // console.log(e);
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -80,9 +89,11 @@ class AjoutLivre extends Component {
         // console.log(this.props);
         const { titre, matiere, contenu, date, creator, creators } = this.state;
         return (
+            <div>
+            <Navbar history = {this.props.history} />
             <Container spacing={2} >
                 <Typography variant="h5">
-                    Ajout cours
+                    Ajout livre
                 </Typography>
                 <br/>
                 <Grid container spacing={2}>
@@ -104,8 +115,8 @@ class AjoutLivre extends Component {
                         onChange={this.onChange.bind(this)}
                         >
                             {
-                                creators && creators.map(e => {
-                                    return<MenuItem value={e._id} key={e._id}>
+                                creators && creators.map((e, index) => {
+                                    return<MenuItem value={e._id} key={index}>
                                     {e.nom}
                                 </MenuItem>
                                 })
@@ -126,7 +137,7 @@ class AjoutLivre extends Component {
                     <Grid item md={12} xs={12}>
                         <CKEditor
                             editor={ClassicEditor}
-                            data={this.state.text}
+                            data={this.state.contenu}
                             onChange={this.updateData}
                             name='contenu'
                             value={contenu}
@@ -146,6 +157,7 @@ class AjoutLivre extends Component {
 
 
             </Container>
+            </div>
         );
     }
 }

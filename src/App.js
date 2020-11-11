@@ -20,19 +20,8 @@ import Bienvenu from "./components/Bienvenu/Bienvenu";
 import AjoutTp from "./components/Tp/AjoutTp";
 import AjoutLivre from "./components/livres/AjoutLivre"
 import Commentaire from "./components/Commentaire/Commentaire";
+import CoursDetails from "./components/Cours/CoursDetails";
 
-// const theme = createMuiTheme({
-
-//     palette: {
-//         primary: {
-//             main: '#5c6bc0',
-//         },
-//         secondary: {
-//             main: '#ff4081',
-//         },
-//     },
-
-// });
 
 const client = new ApolloClient({
   uri:'http://localhost:8000/graphql'
@@ -43,7 +32,6 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <BrowserRouter>
-          <Navbar/>
           <div className={"divCentral"}>
               <Route exact path="/" component={MenuPage}/>
               <Route path="/Signup" component={Signup} exact/>
@@ -51,6 +39,7 @@ function App() {
               <Route path="/Membres" component={Liste}/>
               <Route path="/Articles" component={Ajout}/>
               <Route path="/Cours" component={Cours}/>
+              <Route path="/Cours-details" component={CoursDetails} />
               <Route path="/Tp" component={Tp}/>
               <Route path="/Livres" component={Livres}/>
               <Route path="/AjoutLivre" component={AjoutLivre} />

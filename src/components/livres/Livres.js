@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
+import CardTitle from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import './Style.css'
@@ -13,188 +14,47 @@ import IconButton from "@material-ui/core/IconButton";
 import InputBase from "@material-ui/core/InputBase";
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Navbar from "../Navbar/Navbar";
+
 
 class livres extends Component {
-    state = {
-        cours: [
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum"
-
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet,"
-
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet,"
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum" +
-                    " doloremque excepturi harum ipsa magnam molestiae mollitia placeat " +
-                    "porro, quasi quisquam totam velit. Eius exercitationem magni mollitia."
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum" +
-                    " doloremque excepturi harum ipsa magnam molestiae mollitia placeat " +
-                    "porro, quasi quisquam totam velit. Eius exercitationem magni mollitia."
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum" +
-                    " doloremque excepturi harum ipsa magnam molestiae mollitia placeat " +
-                    "porro, quasi quisquam totam velit. Eius exercitationem magni mollitia."
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum" +
-                    " doloremque excepturi harum ipsa magnam molestiae mollitia placeat " +
-                    "porro, quasi quisquam totam velit. Eius exercitationem magni mollitia."
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum" +
-                    " doloremque excepturi harum ipsa magnam molestiae mollitia placeat " +
-                    "porro, quasi quisquam totam velit. Eius exercitationem magni mollitia."
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum" +
-                    " doloremque excepturi harum ipsa magnam molestiae mollitia placeat " +
-                    "porro, quasi quisquam totam velit. Eius exercitationem magni mollitia."
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum" +
-                    " doloremque excepturi harum ipsa magnam molestiae mollitia placeat " +
-                    "porro, quasi quisquam totam velit. Eius exercitationem magni mollitia."
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum" +
-                    " doloremque excepturi harum ipsa magnam molestiae mollitia placeat " +
-                    "porro, quasi quisquam totam velit. Eius exercitationem magni mollitia."
-            },
-            {
-                titre:"Les biens mobilier et immobilier",
-                type:'Droit civil',
-                branche:"Droit public",
-                mention:"L1",
-                date_ajout:"31-10-2020",
-                auteur:"Jean Rak",
-                content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
-                    " Amet aperiam autem consequuntur cum doloremque excepturi harum" +
-                    " ipsa magnam molestiae mollitia placeat porro, quasi quisquam totam " +
-                    "velit. Eius exercitationem magni mollitia.Lorem ipsum dolor sit amet," +
-                    " consectetur adipisicing elit. Amet aperiam autem consequuntur cum" +
-                    " doloremque excepturi harum ipsa magnam molestiae mollitia placeat " +
-                    "porro, quasi quisquam totam velit. Eius exercitationem magni mollitia."
-            }
-        ],
+    constructor(props){
+        super(props);
+        this.state = {
+            datas:[]
+        }
     }
+
+    componentDidMount(){
+        this.getLivres()
+    }
+
+    getLivres(){
+        axios.post('http://localhost:8000/graphql', null, {
+            params:{
+                query: "query{livres{titre, matiere, contenu, date}}"
+            },
+            headers:{
+                Authorization:'Bearer '+localStorage.getItem("Token")
+            }
+        })
+        .then(({data:{data:{livres}}})=> {
+            // console.log(e);
+            this.setState({
+                datas:livres
+            })
+        })
+        .catch(err => {
+            console.log({err});
+        })
+    }
+
     render() {
+        const { datas } = this.state
         return (
+            <div>
+            <Navbar history = {this.props.history} />
             <Container spacing={2} >
                 <br/>
                 <Grid container
@@ -210,7 +70,7 @@ class livres extends Component {
                             className={"button"}
                             startIcon={<AddIcon />}
                         >
-                            <Link to="/Ajout_cours" >
+                            <Link to="/AjoutLivre" >
                                 Nouvelleaux livres
                             </Link>
                         </Button>
@@ -228,36 +88,39 @@ class livres extends Component {
                     </Grid>
                 </Grid>
                 <br/>
-                {
-                    this.state.cours.map((cours, id) => (
-                        <Card className={"root"} key={id}>
-                            <CardHeader
-                                title={cours.titre}
-                                subheader={cours.date_ajout}
-                            />
-                            <CardContent>
-                                <Typography variant="body2" color="textSecondary" component="p" className={"contenu"}>
-                                    {
-                                        cours.content
-                                    }
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <Grid>
-                                    <Grid item >
-                                        <Button color="primary" outlined>
-                                            Voir plus
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-                            </CardActions>
+                        {
+                            datas && datas.map((e, index) => {
+                                return(
+                                    <Card className={"root"} key={index}>
+                                        <CardHeader
+                                            title={e.titre}
+                                            subheader={e.date}
+                                        />
+                                        <CardTitle
+                                            title={e.matiere}
+                                         />
+                                        <CardContent>
+                                            <Typography variant="body2" color="textSecondary" component="p" className={"contenu"}>
+                                                {e.contenu}
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions disableSpacing>
+                                            <Grid>
+                                                <Grid item >
+                                                    <Button color="primary" outlined>
+                                                        Voir plus
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                        </CardActions>
 
-                        </Card>
-                    ))
-                }
-
+                                    </Card>
+                                )
+                            })
+                        }
 
             </Container>
+            </div>
         );
     }
 }

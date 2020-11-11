@@ -9,16 +9,16 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button"
 import axios from "axios";
+import Navbar from "../Navbar/Navbar";
 
 class Add extends Component {
     constructor(props){
         super(props);
         this.state = {
-            text:'',
             titre:'',
             matiere:'',
             contenu:'',
-            date:'',
+            date:new Date(),
             creator:' ',
             creators: []
         }
@@ -47,6 +47,7 @@ class Add extends Component {
 
     onSubmit(){
         const { titre, matiere, contenu, date, creator, creators } = this.state;
+        console.log(creator);
         axios.post('http://localhost:8000/graphql', null, {
             params:{
                 query: "mutation {createArticle(articleInput:{titre:\""+titre+"\",matiere:\""+matiere+"\",contenu:\""+contenu+"\",date:\""+date+"\",creator:\""+creator+"\"}){ titre matiere contenu date}}"
@@ -55,8 +56,16 @@ class Add extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
-        .then((e) => {
-            console.log(e);
+        .then(({data:{data:{createArticle}}}) => {
+            // console.log(data);
+            this.setState({
+                titre:'',
+                matiere:'',
+                contenu:'',
+                date:new Date(),
+                creator:creators[0]
+            })
+            this.props.history.push('/Cours')
         })
         .catch(err => {
             console.log({err});
@@ -65,8 +74,9 @@ class Add extends Component {
     
 
     updateData = (event, editor) => {
+        // console.log(editor);
         this.setState({
-            text:editor.getData(),
+            contenu:editor.getData(),
 
         })
     }
@@ -80,6 +90,8 @@ class Add extends Component {
         // console.log(this.props);
         const { titre, matiere, contenu, date, creator, creators } = this.state;
         return (
+            <div>
+            <Navbar history = {this.props.history} />
             <Container spacing={2} >
                 <Typography variant="h5">
                     Ajout cours
@@ -126,8 +138,8 @@ class Add extends Component {
                     <Grid item md={12} xs={12}>
                         <CKEditor
                             editor={ClassicEditor}
-                            data={this.state.text}
-                            onChange={this.updateData}
+                            data={this.state.contenu}
+                            onChange={this.updateData.bind(this)}
                             name='contenu'
                             value={contenu}
                         />
@@ -146,6 +158,7 @@ class Add extends Component {
 
 
             </Container>
+            </div>
         );
     }
 }

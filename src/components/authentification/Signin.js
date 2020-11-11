@@ -13,6 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import "./Style.css"
 import theme from "../../Theme";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
 
 class Signin extends Component {
     constructor(props) {
@@ -25,12 +27,14 @@ class Signin extends Component {
     }
     onSubmit(){
         const {email, password} = this.state
+        // console.log(password);
         axios.post('http://localhost:8000/graphql',null, { 
             params: {
-                query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token} }"
+                query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin} }"
               }
-        }).then(({data:{data:{login: {token}}}}) => {
+        }).then(({data:{data:{login: {token, isAdmin}}}}) => {
             localStorage.setItem('Token', token)
+            localStorage.setItem('isAdmin', isAdmin)
             this.props.history.push('/')
         }).catch(err => {
             console.log({err});
@@ -38,6 +42,7 @@ class Signin extends Component {
     }
 
     onCHange (e) {
+        // console.log(e.target.name);
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -51,6 +56,7 @@ class Signin extends Component {
     render() {
         return (
             <div theme = {theme}>
+                <Navbar history = {this.props.history} />
                 <Paper elevation={2} className={'papper'}>
                     <Grid container spacing={2}>
                         <Typography variant={'h5'} className={'titre'}>
@@ -90,6 +96,11 @@ class Signin extends Component {
                             <Button variant="contained" onClick={this.onSubmit.bind(this)} color={"secondary"} fullWidth>
                                 Se connecter
                             </Button>
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                            <Link to="/Signup">
+                                <p>S'enregistrer</p>
+                            </Link>
                         </Grid>
                     </Grid>
                 </Paper>

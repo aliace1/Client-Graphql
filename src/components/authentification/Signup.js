@@ -10,6 +10,8 @@ import Button from "@material-ui/core/Button";
 import './Style.css';
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
 
 class Signup extends Component {
 
@@ -101,6 +103,8 @@ class Signup extends Component {
             creators
         } = this.state;
         return (
+            <div>
+            <Navbar history = {this.props.history} />
             <Paper className={'papper'} elevation={1}>
                 <Grid container spacing={2}>
                     <Grid item md={12} xs={12}>
@@ -189,8 +193,14 @@ class Signup extends Component {
                             S'authentifier
                         </Button>
                     </Grid>
+                    <Grid item md={6} xs={12}>
+                        <Link to="/Signin">
+                            <p>Déjà membre</p>
+                        </Link>
+                    </Grid>
                 </Grid>
             </Paper>
+            </div>
         );
     }
 }

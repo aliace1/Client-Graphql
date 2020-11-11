@@ -8,10 +8,13 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import Navbar from "../Navbar/Navbar"
 
 class MenuPage extends Component {
     render() {
         return (
+            <div>
+            <Navbar history = {this.props.history} />
             <Container>
                 <Grid container spacing={2}>
                     <Grid item >
@@ -62,6 +65,7 @@ class MenuPage extends Component {
                     </Grid>
                 </Grid>
             </Container>
+            </div>
         );
     }
 }
