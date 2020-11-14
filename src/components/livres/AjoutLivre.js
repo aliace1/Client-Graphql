@@ -19,7 +19,7 @@ class AjoutLivre extends Component {
             titre:'',
             matiere:'',
             contenu:'',
-            date:'',
+            date:new Date(),
             creator:' ',
             creators: []
         }

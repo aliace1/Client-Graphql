@@ -8,12 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import "./Style.css";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -40,19 +34,17 @@ const useStyles = makeStyles({
 });
 
 const nav1 = [
-    { title: `Accueil`, path: `/` , icons:""},
     { title: `Cours`, path: `/Cours` , icons:"" },
-    { title: `Travaux pratique`, path: `/Tp` , icons:""},
     { title: `Livres`, path: `/Livres` , icons:"" },
+    { title: `Travaux pratique`, path: `/Tp` , icons:""},
     { title: `Membres`, path: `/Membres` , icons:"" },
     { title: `Verification`, path: `/Verification`, icon:"" },
 ];
 
 let navLinks = [
-    { title: `Accueil`, path: `/` , icons:""},
     { title: `Cours`, path: `/Cours` , icons:"" },
-    { title: `Travaux pratique`, path: `/Tp` , icons:""},
-    { title: `Livres`, path: `/Livres` , icons:"" }
+    { title: `Livres`, path: `/Livres` , icons:"" },
+    { title: `Travaux pratique`, path: `/Tp` , icons:""}
 ];
 
 function onSubmit(history){
@@ -80,31 +72,33 @@ const NavBar = ({history}) => {
 
 
 
-    const dialog = () => {
-        return (
-            <Dialog onClose={"handleClose"} aria-labelledby="simple-dialog-title" open={"open"}>
-                <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-                <List>
-                    <ListItem autoFocus button >
-                        <ListItemAvatar>
-                            <Avatar>
-                                <AddIcon />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary="Add account" />
-                    </ListItem>
-                </List>
-            </Dialog>
-        )
-    };
+    // const dialog = () => {
+    //     return (
+    //         <Dialog onClose={"handleClose"} aria-labelledby="simple-dialog-title" open={"open"}>
+    //             <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
+    //             <List>
+    //                 <ListItem autoFocus button >
+    //                     <ListItemAvatar>
+    //                         <Avatar>
+    //                             <AddIcon />
+    //                         </Avatar>
+    //                     </ListItemAvatar>
+    //                     <ListItemText primary="Add account" />
+    //                 </ListItem>
+    //             </List>
+    //         </Dialog>
+    //     )
+    // };
     return (
         <React.Fragment>
             <HideOnScroll>
-                <AppBar position="fixed" color={"primary"}>
+                <AppBar position="fixed" color={"primary"} elevation={0}>
                     <Toolbar component="nav" variant="dense">
                         <Container className={classes.navbarDisplayFlex} fluid>
                             <Typography variant="h5" className={classes.title} color="white">
-                                Fordisco-ius
+                                <Link to="/">
+                                    <img src="assets/img/logo.png" alt="logo" style={{width:90, marginTop:8}} />
+                                </Link>
                             </Typography>
 
                             <Hidden smDown>
@@ -128,19 +122,20 @@ const NavBar = ({history}) => {
                                     className={classes.compte}
                                     color="inherit"
                                     elevation={5}
-                                    onClick{...dialog}
+                                    onClick={()=>onSubmit(history)}
                                 >
                                     <Link to="/Signup">
                                         <AccountCircleIcon/>
                                     </Link>
-                                </IconButton>
-                                {
+                                
+                                {/* {
                                     !isConnecter?<Button onClick={()=>onSubmit(history)}>
                                     Deconnexion
                                 </Button>:<Button>
                                     Connexion
                                 </Button>
-                                }
+                                } */}
+                                </IconButton>
                             <Hidden mdUp>
                                 <SideDrawer navLinks={navLinks} />
                             </Hidden>
@@ -148,7 +143,7 @@ const NavBar = ({history}) => {
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>
-            <Toolbar id="back-to-top-anchor"/>
+            {/* <Toolbar id="back-to-top-anchor"/> */}
             <BackToTop>
                 <Fab color="secondary" size="large" aria-label="scroll back to top">
                     <KeyboardArrowUp />

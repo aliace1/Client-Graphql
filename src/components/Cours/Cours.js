@@ -16,6 +16,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
+import Parse from "html-react-parser";
 
 class Cours extends Component {
     constructor(props){
@@ -31,7 +32,7 @@ class Cours extends Component {
     getArticles(){
         axios.post('http://localhost:8000/graphql', null, {
             params:{
-                query: "query{articles{titre, matiere, contenu, date}}"
+                query: "query{articles{_id, titre, matiere, contenu, date}}"
             },
             headers:{
                 Authorization:'Bearer '+localStorage.getItem("Token")
@@ -48,6 +49,25 @@ class Cours extends Component {
         })
     }
     
+    onClick(id){
+        axios.post('http://localhost:8000/graphql', null, {
+            params:{
+                query: "query{articles{titre, matiere, contenu, date}}"
+            },
+            headers: {
+                Authorization:'Bearer '+localStorage.getItem("Token")
+            }
+        })
+        .then(({data:{data:{articles}}}) => {
+            this.setState({
+                datas:[ ...this.state.datas.filter(e => e._id === id), articles ]
+                
+            })
+        })
+        .catch(err => {
+            console.log({err});
+        })
+    }
 
     render() {
         const { datas } = this.state
@@ -62,7 +82,9 @@ class Cours extends Component {
                           alignItems="flex-start"
                     >
                         <Grid item md={4} sm={12} edge={"start"} fullWidth>
-                            <Button
+                            {
+                                localStorage.hasOwnProperty('isAdmin') ?(localStorage.getItem('isAdmin') === 'y' &&
+                                    <Button
                                 variant="contained"
                                 color="primary"
                                 size="large"
@@ -73,6 +95,8 @@ class Cours extends Component {
                                 Nouvelle cours
                                 </Link>
                             </Button>
+                                ):null
+                            }
                         </Grid>
                         <Grid item md={4} sm={12} edge={"start"} fullWidth>
                             <InputBase
@@ -100,15 +124,18 @@ class Cours extends Component {
                                             />
                                             <CardContent>
                                                 <Typography variant="body2" color="textSecondary" component="p" className={"contenu"}>
-                                                    {e.contenu}
+                                                    {Parse(e.contenu)[100]}
                                                 </Typography>
                                             </CardContent>
                                             <CardActions disableSpacing>
                                                 <Grid>
                                                     <Grid item >
                                                         <Link to="Cours-details">
-                                                            <Button color="primary">
-                                                                Voir plus
+                                                        {/* {console.log(e)} */}
+                                                            <Button color="primary" onClick={this.onClick.bind(this)}>
+                                                                <Link to={ localStorage.hasOwnProperty("Token") ?('/Detail/'+e._id) : '/Signin'}>
+                                                                    Voir plus
+                                                                </Link>
                                                             </Button>
                                                         </Link>
                                                     </Grid>

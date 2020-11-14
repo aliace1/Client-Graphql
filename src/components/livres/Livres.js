@@ -16,6 +16,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
+import Parse from "html-react-parser";
 
 
 class livres extends Component {
@@ -33,7 +34,7 @@ class livres extends Component {
     getLivres(){
         axios.post('http://localhost:8000/graphql', null, {
             params:{
-                query: "query{livres{titre, matiere, contenu, date}}"
+                query: "query{livres{_id, titre, matiere, contenu, date}}"
             },
             headers:{
                 Authorization:'Bearer '+localStorage.getItem("Token")
@@ -101,15 +102,20 @@ class livres extends Component {
                                          />
                                         <CardContent>
                                             <Typography variant="body2" color="textSecondary" component="p" className={"contenu"}>
-                                                {e.contenu}
+                                                {Parse(e.contenu)[100]}
                                             </Typography>
                                         </CardContent>
                                         <CardActions disableSpacing>
                                             <Grid>
                                                 <Grid item >
-                                                    <Button color="primary" outlined>
-                                                        Voir plus
-                                                    </Button>
+                                                    <Link to='/Livre-details'>
+                                                        {/* {console.log(e)} */}
+                                                        <Button color="primary" outlined>
+                                                            <Link to={'/Detail-livre/'+e._id}>
+                                                            Voir plus
+                                                            </Link>
+                                                        </Button>
+                                                    </Link>
                                                 </Grid>
                                             </Grid>
                                         </CardActions>

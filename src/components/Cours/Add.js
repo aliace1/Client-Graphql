@@ -10,6 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button"
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
+import Editor from '../Editor'
+// import 'jodit';
+// import 'jodit/build/jodit.min.css';
+// import JoditEditor from "jodit-react";
 
 class Add extends Component {
     constructor(props){
@@ -47,7 +51,7 @@ class Add extends Component {
 
     onSubmit(){
         const { titre, matiere, contenu, date, creator, creators } = this.state;
-        console.log(creator);
+        // console.log(creator);
         axios.post('http://localhost:8000/graphql', null, {
             params:{
                 query: "mutation {createArticle(articleInput:{titre:\""+titre+"\",matiere:\""+matiere+"\",contenu:\""+contenu+"\",date:\""+date+"\",creator:\""+creator+"\"}){ titre matiere contenu date}}"
@@ -80,9 +84,15 @@ class Add extends Component {
 
         })
     }
+    // SubmitEditor = (outPut) =>{
+    //     // console.log(outPut)
+    //     this.setState({
+    //         contenu:outPut
+    //     })
+    // }
 
     onChange(e) {
-        console.log(e);
+        // console.log(e);
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -135,7 +145,7 @@ class Add extends Component {
                         onChange={this.onChange.bind(this)}
                         />
                     </Grid>
-                    <Grid item md={12} xs={12}>
+                   
                         <CKEditor
                             editor={ClassicEditor}
                             data={this.state.contenu}
@@ -144,7 +154,9 @@ class Add extends Component {
                             value={contenu}
                         />
 
-                    </Grid>
+                        {/* <Editor onSubmit={this.updateData.bind(this).bind(this)} value={contenu} className={'Editor'} onChange={this.onChange.bind(this)}/> */}
+
+                    
                 </Grid>
                 <div>
                     

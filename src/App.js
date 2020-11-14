@@ -5,8 +5,6 @@ import Signin from "./components/authentification/Signin";
 import MenuPage from "./components/menu/menu_page";
 import Liste from "./components/Liste_etudiant/Liste";
 import React from "react";
-// import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import StickyFooter from "./components/Footer/Footer";
 import './App.css'
 import Ajout from "./components/Article/Ajout";
 import Cours from "./components/Cours/Cours";
@@ -20,7 +18,10 @@ import Bienvenu from "./components/Bienvenu/Bienvenu";
 import AjoutTp from "./components/Tp/AjoutTp";
 import AjoutLivre from "./components/livres/AjoutLivre"
 import Commentaire from "./components/Commentaire/Commentaire";
-import CoursDetails from "./components/Cours/CoursDetails";
+import Footer from "./components/Footer/Footer";
+import Detail from "./components/Cours/Detail";
+import DetailTp from "./components/Tp/DetailTp";
+import DetailLivre from "./components/livres/DetailLivre";
 
 
 const client = new ApolloClient({
@@ -32,6 +33,7 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <BrowserRouter>
+        <Navbar />
           <div className={"divCentral"}>
               <Route exact path="/" component={MenuPage}/>
               <Route path="/Signup" component={Signup} exact/>
@@ -39,17 +41,19 @@ function App() {
               <Route path="/Membres" component={Liste}/>
               <Route path="/Articles" component={Ajout}/>
               <Route path="/Cours" component={Cours}/>
-              <Route path="/Cours-details" component={CoursDetails} />
               <Route path="/Tp" component={Tp}/>
+              <Route path="/Detail/:id" component={Detail} />
               <Route path="/Livres" component={Livres}/>
+              <Route path="/Detail-livre/:id" component={DetailLivre} />
               <Route path="/AjoutLivre" component={AjoutLivre} />
               <Route path="/Ajout_cours" component={Add}/>
               <Route path="/AjoutTp" component={AjoutTp} />
+              <Route path="/DetailTp/:id" component={DetailTp} />
               <Route path="/Bienvenu" component={Bienvenu} />
               <Route path="/Verification" component={Verification} />
               <Route path="/Commentaire" component={Commentaire} />
           </div>
-          <StickyFooter/>
+          <Footer />
         </BrowserRouter>
       </div>
     </ApolloProvider>

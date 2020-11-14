@@ -5,3 +5,7 @@
 a href {
    text-decoration: none !important;
 }
+
+.Editor {
+   border: 2px solid red;
+}

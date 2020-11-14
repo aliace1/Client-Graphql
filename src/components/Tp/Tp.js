@@ -16,6 +16,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
+import Parse from "html-react-parser";
 
 class Tp extends Component {
     constructor(props){
@@ -32,7 +33,7 @@ class Tp extends Component {
     getAllDevoirs(){
         axios.post('http://localhost:8000/graphql', null, {
             params:{
-                query: "query{devoirs{titre, matiere, contenu, date}}"
+                query: "query{devoirs{_id, titre, matiere, contenu, date}}"
             },
             headers:{
                 Authorization:'Bearer '+localStorage.getItem("Token")
@@ -70,7 +71,7 @@ class Tp extends Component {
                             startIcon={<AddIcon />}
                         >
                             <Link to="/AjoutTp" >
-                                Nouveau Traveau Pratique
+                                Nouveau devoir
                             </Link>
                         </Button>
                     </Grid>
@@ -100,15 +101,20 @@ class Tp extends Component {
                                         />
                                         <CardContent>
                                             <Typography variant="body2" color="textSecondary" component="p" className={"contenu"}>
-                                                {e.contenu}
+                                                {Parse(e.contenu)[100]}
                                             </Typography>
                                         </CardContent>
                                         <CardActions disableSpacing>
                                             <Grid>
                                                 <Grid item >
-                                                    <Button color="primary">
-                                                        Voir plus
-                                                    </Button>
+                                                   <Link to="/Devoir-details">
+                                                    {/* {console.log(e)} */}
+                                                        <Button color="primary">
+                                                            <Link to={'/DetailTp/'+e._id}>
+                                                                Voir plus
+                                                            </Link>
+                                                        </Button>
+                                                   </Link>
                                                 </Grid>
                                             </Grid>
                                         </CardActions>

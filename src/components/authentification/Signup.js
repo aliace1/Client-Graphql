@@ -38,7 +38,7 @@ class Signup extends Component {
                 query: "query {classes {_id, nom} }"
             }
         }).then(({data:{data:{classes}}}) => {
-            console.log(classes[0]);
+            // console.log(classes[0]);
             this.setState({
                 creators:classes
             }, () => this.setState({creator: classes[0]._id}))
