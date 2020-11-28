@@ -21,7 +21,7 @@ class MenuPage extends Component {
                         </ol>
                         <div className="carousel-inner">
                             <div className="carousel-item active">
-                                <img src="assets/img/Formation.jpg" alt="Formation" srcset=""/>
+                                <img src="assets/img/Formation2.png" alt="Formation" srcset=""/>
                                 <div className="container">
                                     <div className="carousel-caption text-center">
                                         <h1> La formation</h1>
@@ -30,7 +30,7 @@ class MenuPage extends Component {
                                 </div>
                             </div>
                             <div className="carousel-item">
-                                <img src="assets/img/Discussion.png" alt="Formation" srcSet=""/>
+                                <img src="assets/img/Discussion2.png" alt="Formation" srcSet=""/>
                                 <div className="container">
                                     <div className="carousel-caption">
                                         <h1>Les discussions</h1>
@@ -40,7 +40,7 @@ class MenuPage extends Component {
                                 </div>
                             </div>
                             <div className="carousel-item">
-                                <img src="assets/img/Discussion.png" alt="Formation" srcSet=""/>
+                                <img src="assets/img/Discussion2.png" alt="Formation" srcSet=""/>
                                 <div className="container">
                                     <div className="carousel-caption text-center">
                                         <h1>Le conseil</h1>
@@ -49,7 +49,7 @@ class MenuPage extends Component {
                                 </div>
                             </div>
                             <div className="carousel-item">
-                                <img src="assets/img/Droit.jpg" alt="Formation" srcSet=""/>
+                                <img src="assets/img/Droit2.png" alt="Formation" srcSet=""/>
                                 <div className="container">
                                     <div className="carousel-caption text-center">
                                         <h1>L'IUS</h1>
@@ -57,7 +57,7 @@ class MenuPage extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="carousel-item">
+                            {/* <div className="carousel-item">
                                 <img src="assets/img/Start.jpg" alt="Formation" srcSet=""/>
                                 <div className="container">
                                     <div className="carousel-caption text-center">
@@ -66,7 +66,7 @@ class MenuPage extends Component {
                                        </Button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <a className="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                             <span className="carousel-control-prev-icon" aria-hidden="true"/>

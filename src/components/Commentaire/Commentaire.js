@@ -5,6 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
+import Moment from "react-moment";
+import jwt_decode from "jwt-decode";
 
 class Commentaire extends React.Component {
     constructor(props){
@@ -14,6 +16,7 @@ class Commentaire extends React.Component {
             date:new Date(),
             createdUsers:' ',
             creators:[],
+            creator:[],
             datas:[]
         }
     }
@@ -43,25 +46,61 @@ class Commentaire extends React.Component {
     }
 
     onSubmit(){
+        var decoded = jwt_decode(localStorage.getItem('Token')).userId;
         const { commentaire, date, creators } = this.state;
-        axios.post('http://localhost:8000/graphql', null, {
-            params:{
-                query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\"}){commentaire date}}"
-            },
-            headers:{
-                Authorization:'Bearer '+localStorage.getItem("Token")
-            }
-        })
-        .then(({data:{data:{createCommentaire}}}) => {
-            console.log(createCommentaire);
-            this.setState({
-                date:new Date(),
-                creators:[...creators, createCommentaire]
-            })
-        })
-        .catch(err => {
-            console.log({err});
-        })
+        switch(this.props.match.params.type){
+            case 'Cours':
+                return axios.post('http://localhost:8000/graphql', null, {
+                    params:{
+                        query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
+                    },
+                    headers:{
+                        Authorization:'Bearer '+localStorage.getItem("Token")
+                    }
+                })
+                .then(({data:{data:{createCommentaire}}}) => {
+                    // console.log(createCommentaire);
+                    
+                    this.props.history.push('/Detail/'+this.props.match.params.id)
+                    // console.log(this.props.match.params.type);
+                })
+                .catch(err => {
+                    console.log({err});
+                })
+
+            case 'Livres':
+                return axios.post('http://localhost:8000/graphql', null, {
+                    params:{
+                        query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
+                    },
+                    headers:{
+                        Authorization:'Bearer '+localStorage.getItem("Token")
+                    }
+                })
+                .then(({data:{data:{createCommentaire}}}) => {
+                    this.props.history.push('/Detail-livre/'+this.props.match.params.id)
+                })
+                .catch(err => {
+                    console.log({err});
+                })
+
+            case 'Tp':
+                return axios.post('http://localhost:8000/graphql', null, {
+                    params:{
+                        query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
+                    },
+                    headers:{
+                        Authorization:'Bearer '+localStorage.getItem("Token")
+                    }
+                })
+                .then(({data:{data:{createCommentaire}}}) => {
+                    this.props.history.push('/DetailTp/'+this.props.match.params.id)
+                })
+                .catch(err => {
+                    console.log({err});
+                })
+        }
+        
     }
 
     onChange(e){
@@ -72,7 +111,7 @@ class Commentaire extends React.Component {
     render() {
         const { commentaire, creators } = this.state;
         return (
-            <div>
+            <div className="mt-4">
                 <Navbar history = {this.props.history} />
                 <Grid container spacing={2}>
                     <Typography variant={'h5'} className={'titre'}>
@@ -89,7 +128,10 @@ class Commentaire extends React.Component {
                         />
                     </Grid>
                     <Grid item md={6} xs={6}>
-                        <Button variant="contained" color={"primary"} fullWidth onClick={this.onSubmit.bind(this)}>
+                        <Button variant="contained" color={"primary"} 
+                        fullWidth onClick={this.onSubmit.bind(this)}
+                        className="mb-4 mt-2"
+                        >
                             Commenter
                         </Button>
                     </Grid>
@@ -97,12 +139,15 @@ class Commentaire extends React.Component {
                 <div>
                     {
                         creators && creators.map((e, index) => {
-                            console.log(e);
+                            // console.log(e);
                             return(
                                 <>
                                     <div>
-                                        <h1> {e.commentaire} </h1>
-                                        <p> {e.date} </p>
+                                        <h6> {e.commentaire} </h6>
+                                        {/* <p> {console.log(e)} </p> */}
+                                        <p> {<Moment format="DD/MM/YYYY">
+                                                {e.date}
+                                            </Moment>} </p>
                                     </div>
                                 </>
                             );

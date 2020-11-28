@@ -64,9 +64,9 @@ class Signup extends Component {
             if(nom && prenom && matricule && email && creator){
                 axios.post('http://localhost:8000/graphql',null, { 
                     params: {
-                        query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token} }"
+                        query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin isAjout} }"
                     }
-                }).then(({data:{data:{login: {token}}}}) => {
+                }).then(({data:{data:{login: {token, isAdmin, isAjout}}}}) => {
                     this.setState({
                         nom:'',
                         prenom:'',
@@ -76,6 +76,8 @@ class Signup extends Component {
                         creator:creators[0]
                     })
                     localStorage.setItem('Token', token)
+                    localStorage.setItem('isAdmin', isAdmin)
+                    localStorage.setItem('isAjout', isAjout)
                     this.props.history.push('/Bienvenu')
                 }).catch(err => {
                     console.log({err});

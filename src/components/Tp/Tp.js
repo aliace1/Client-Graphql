@@ -17,23 +17,44 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import Parse from "html-react-parser";
+import Moment from "react-moment";
 
 class Tp extends Component {
     constructor(props){
         super(props);
         this.state = {
-            datas:[]
+            datas:[],
+            creator:[],
+            creators:[]
         }
     }
 
     componentDidMount(){
         this.getAllDevoirs()
+        this.setItems()
+    }
+
+    setItems(){
+        axios.post('http://localhost:8000/graphql', null, {
+            params:{
+                query: "query {classes {_id nom} }"
+            }
+        })
+        .then(({data:{data:{classes}}}) => {
+            // console.log(classes[0]);
+            this.setState({
+                creators: classes
+            })
+        })
+        .catch(err => {
+            console.log({err});
+        })
     }
 
     getAllDevoirs(){
         axios.post('http://localhost:8000/graphql', null, {
             params:{
-                query: "query{devoirs{_id, titre, matiere, contenu, date}}"
+                query: "query{devoirs{_id titre matiere contenu date creator}}"
             },
             headers:{
                 Authorization:'Bearer '+localStorage.getItem("Token")
@@ -51,7 +72,7 @@ class Tp extends Component {
     }
 
     render() {
-        const { datas } = this.state
+        const { datas, creators } = this.state
         return (
             <div>
             <Navbar history = {this.props.history} />
@@ -63,17 +84,22 @@ class Tp extends Component {
                       alignItems="flex-start"
                 >
                     <Grid item md={4} sm={12} edge={"start"} fullWidth>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            size="large"
-                            className={"button"}
-                            startIcon={<AddIcon />}
-                        >
-                            <Link to="/AjoutTp" >
-                                Nouveau devoir
-                            </Link>
-                        </Button>
+                        {
+                            localStorage.hasOwnProperty('isAdmin') ? (
+                                localStorage.getItem('isAdmin') === 'y' && 
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="large"
+                                    className={"button"}
+                                    startIcon={<AddIcon />}
+                                >
+                                    <Link to="/AjoutTp" >
+                                        Nouveau devoir
+                                    </Link>
+                                </Button>
+                            ) : null
+                        }
                     </Grid>
                     <Grid item md={4} sm={12} edge={"start"} fullWidth>
                         <InputBase
@@ -90,11 +116,23 @@ class Tp extends Component {
                 <br/>
                         {
                             datas && datas.map((e, index) => {
+                                const stock = creators && creators.filter(j => j._id === e.creator)[0]
+                                    let cre = ''
+                                    if(stock){
+                                        cre = stock.nom
+                                    }
                                 return(
                                     <Card className={"root"} key={index}>
+                                        <div className="text-center">
+                                            {
+                                                cre
+                                            }
+                                        </div>
                                         <CardHeader
                                             title={e.titre}
-                                            subheader={e.date}
+                                            subheader={<Moment format="DD/MM/YYYY">
+                                                {e.date}
+                                            </Moment>}
                                         />
                                         <CardTitle 
                                             title={e.matiere}

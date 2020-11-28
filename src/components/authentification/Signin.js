@@ -30,11 +30,12 @@ class Signin extends Component {
         // console.log(password);
         axios.post('http://localhost:8000/graphql',null, { 
             params: {
-                query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin} }"
+                query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin isAjout} }"
               }
-        }).then(({data:{data:{login: {token, isAdmin}}}}) => {
+        }).then(({data:{data:{login: {token, isAdmin, isAjout}}}}) => {
             localStorage.setItem('Token', token)
             localStorage.setItem('isAdmin', isAdmin)
+            localStorage.setItem('isAjout', isAjout)
             this.props.history.push('/')
         }).catch(err => {
             console.log({err});

@@ -1,18 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
+import 'jodit';
+import 'jodit/build/jodit.min.css';
+import JoditEditor from "jodit-react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import { CKEditor } from '@ckeditor/ckeditor5-react';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button"
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 
 
-class AjoutLivre extends Component {
+class AjoutLivre extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -58,13 +61,15 @@ class AjoutLivre extends Component {
         })
         .then(({data:{data:{createLivre}}}) => {
             // console.log(data);
-            this.setState({
-                titre:'',
-                matiere:'',
-                contenu:'',
-                date:new Date(),
-                creator:creators[0]
-            })
+            if(createLivre){
+                this.setState({
+                    titre:'',
+                    matiere:'',
+                    contenu:'',
+                    date:new Date(),
+                    creator:creators[0]
+                })
+            }
             this.props.history.push('/Livres')
         })
         .catch(err => {
@@ -73,23 +78,29 @@ class AjoutLivre extends Component {
     }
     
 
-    updateData = (event, editor) => {
-        this.setState({
-            contenu:editor.getData(),
+    updateContent = (value) => {
+        // console.log(value);
+        this.setState({ contenu: value });
+      };
+    
 
-        })
-    }
-
-    onChange(e) {
+    onChange = (e) => {
         // console.log(e);
+        // const value = e.currentTarget.value;
+        // this.setState({
+        //     titre:value,
+        //     matiere:value,
+        //     date:new Date(),
+        //     creator:value,
+        // })
         this.setState({[e.target.name]: e.target.value})
     }
 
     render() {
         // console.log(this.props);
-        const { titre, matiere, contenu, date, creator, creators } = this.state;
+        const { titre, matiere, contenu, creator, creators } = this.state;
         return (
-            <div>
+            <div className="mt-4">
             <Navbar history = {this.props.history} />
             <Container spacing={2} >
                 <Typography variant="h5">
@@ -135,10 +146,19 @@ class AjoutLivre extends Component {
                         />
                     </Grid>
                     <Grid item md={12} xs={12}>
-                        <CKEditor
+                        {/* <CKEditor
                             editor={ClassicEditor}
                             data={this.state.contenu}
                             onChange={this.updateData}
+                            name='contenu'
+                            value={contenu}
+                        /> */}
+
+                        <JoditEditor
+                            editorRef={this.setRef}
+                            value={this.state.contentu}
+                            config={this.config}
+                            onChange={this.updateContent}
                             name='contenu'
                             value={contenu}
                         />
@@ -150,7 +170,10 @@ class AjoutLivre extends Component {
                 </div>
 
                 <Grid item md={6} xs={12}>
-                    <Button variant="contained" color="primary" fullWidth onClick={this.onSubmit.bind(this)}>
+                    <Button variant="contained" color="primary" 
+                    fullWidth onClick={this.onSubmit.bind(this)}
+                    className="mt-4 mb-4"
+                    >
                         Ajouter
                     </Button>
                 </Grid>

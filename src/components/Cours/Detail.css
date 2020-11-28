@@ -9,4 +9,44 @@
 .principale {
     margin-bottom: 30px;
 }
+.card{
+    margin-bottom: 3px;
+}
+.card2{
+    margin: 1%;
+}
+.rep-comment{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+/* .card-comment{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+} */
 
+#comment{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+#comment2{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2px;
+}
+.respcomment{
+    margin-bottom: 2px;
+    
+}
+#nom{
+    color: rgb(67, 140, 237);
+}

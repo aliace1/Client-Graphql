@@ -50,7 +50,7 @@ class Footer extends React.Component {
                     </div>
                 </div>
                 <p className="footer-bottom-text">
-                    &copy;{" "}{new Date().getFullYear()}{" "} <img src="assets/img/footer.png" alt="logo" style={{width:60, marginTop:8}} /> || par {" "}
+                    &copy;{" "}{new Date().getFullYear()}{" "} <img src="assets/img/footer.png" alt="logo" style={{width:60, marginTop:8}} /> {" "} par {" "}
                     <a href="https://www.linkedin.com/in/rasolonjatovo-martino-2a4841151/" 
                         className="linkedinLink"
                         target="_blank"

@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import "./Style.css";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
     navbarDisplayFlex: {
@@ -37,14 +37,23 @@ const nav1 = [
     { title: `Cours`, path: `/Cours` , icons:"" },
     { title: `Livres`, path: `/Livres` , icons:"" },
     { title: `Travaux pratique`, path: `/Tp` , icons:""},
+    { title: `A Propos`, path: `Apropos`, icons:"" },
     { title: `Membres`, path: `/Membres` , icons:"" },
     { title: `Verification`, path: `/Verification`, icon:"" },
 ];
 
+const nav2 = [
+    // { title: `Cours`, path: `/Cours` , icons:"" },
+    // { title: `Livres`, path: `/Livres` , icons:"" },
+    // { title: `Travaux pratique`, path: `/Tp` , icons:""},
+    { title: `A Propos`, path: `Apropos`, icons:"" }
+]
+
 let navLinks = [
     { title: `Cours`, path: `/Cours` , icons:"" },
     { title: `Livres`, path: `/Livres` , icons:"" },
-    { title: `Travaux pratique`, path: `/Tp` , icons:""}
+    { title: `Travaux pratique`, path: `/Tp` , icons:""},
+    { title: `A Propos`, path: `Apropos`, icons:"" }
 ];
 
 function onSubmit(history){
@@ -62,6 +71,12 @@ const NavBar = ({history}) => {
     if(localStorage.hasOwnProperty('isAdmin')){
         if(localStorage.getItem('isAdmin')==='y'){
             navLinks = nav1
+        }
+    }
+
+    if(localStorage.hasOwnProperty('isAjout')){
+        if(localStorage.getItem('isAjout') !== 'y'){
+            navLinks = nav2
         }
     }
 
@@ -153,4 +168,4 @@ const NavBar = ({history}) => {
     );
 };
 
-export default NavBar;
+export default withRouter(NavBar);

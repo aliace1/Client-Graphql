@@ -54,9 +54,14 @@ h2{
     color: #fff;
     padding: 10px 13px;
 }
+.segment-three a i:hover{
+    color: #000;
+}
 .footer-bottom-text{
     text-align: center;
     background: #000;
     line-height: 75px;
 }
-
+.footer-bottom-text a{
+    text-decoration: none;
+}
