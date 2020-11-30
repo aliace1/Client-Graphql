@@ -35,7 +35,6 @@ class Footer extends React.Component {
 
                             <div className="col-md-4 col-sm-6 col-xs-12 segment-three">
                                 <h2>Rejoignez-nos</h2>
-                                <p>Vous pouvez nous suivre dans les réseaux sociaux comme :</p>
                                 <Link to="/#">
                                     <i className="fa fa-facebook"></i>
                                 </Link>

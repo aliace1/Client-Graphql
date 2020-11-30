@@ -8,6 +8,8 @@ import Navbar from "../Navbar/Navbar";
 import Moment from "react-moment";
 import jwt_decode from "jwt-decode";
 
+import "./Commentaire.css"
+
 class Commentaire extends React.Component {
     constructor(props){
         super(props);
@@ -113,7 +115,7 @@ class Commentaire extends React.Component {
         return (
             <div className="mt-4">
                 <Navbar history = {this.props.history} />
-                <Grid container spacing={2}>
+                <Grid container className="grid-comment" spacing={2}>
                     <Typography variant={'h5'} className={'titre'}>
                         Commentaire :
                     </Typography>
@@ -127,7 +129,7 @@ class Commentaire extends React.Component {
                         onChange={this.onChange.bind(this)}
                         />
                     </Grid>
-                    <Grid item md={6} xs={6}>
+                    <Grid item md={2} xs={10}>
                         <Button variant="contained" color={"primary"} 
                         fullWidth onClick={this.onSubmit.bind(this)}
                         className="mb-4 mt-2"

@@ -31,7 +31,7 @@ class ModifierTp extends React.Component {
     }
 
     setItems(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query {classes {_id, nom} }"
             }
@@ -48,7 +48,7 @@ class ModifierTp extends React.Component {
     }
 
     getDevoir(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{devoirs{_id, titre, matiere, contenu, date}}"
             },
@@ -75,7 +75,7 @@ class ModifierTp extends React.Component {
 
     onSubmit(){
         const { titre, matiere, contenu, creators, _id } = this.state;
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "mutation {updateDevoir(devoirId:\""+_id+"\",titre:\""+titre+"\",matiere:\""+matiere+"\",contenu:\""+contenu+"\"){ titre matiere contenu date}}"
             },

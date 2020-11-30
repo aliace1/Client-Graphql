@@ -10,6 +10,11 @@
 .titre {
     align-self: center;
 }
+
+.sign-in{
+    top: 8px !important;
+    bottom: 8px !important;
+}
 /*.formControl {*/
 /*    margin: auto;*/
 /*}*/

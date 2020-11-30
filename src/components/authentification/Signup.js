@@ -33,7 +33,7 @@ class Signup extends Component {
     }
 
     setItems(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query {classes {_id, nom} }"
             }
@@ -51,7 +51,7 @@ class Signup extends Component {
     onSubmit(){
         const {nom,prenom,matricule,email,password,creator, creators} = this.state;
         console.log(this.state);
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "mutation {createUser(userInput:{nom:\""+nom+"\",prenom:\""+prenom+"\",matricule:\""+matricule+"\",email:\""+email+"\",password:\""+password+"\",creator:\""+creator+"\",isAdmin:\"n\",isAjout:\"n\"}){matricule nom prenom email creator}}"
             }, 
@@ -62,7 +62,7 @@ class Signup extends Component {
        
         }).then(({data:{data:{createUser: {nom,prenom,matricule,email,creator}}}}) => {
             if(nom && prenom && matricule && email && creator){
-                axios.post('http://localhost:8000/graphql',null, { 
+                axios.post('https://api.fordisco-ius.com/graphql',null, { 
                     params: {
                         query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin isAjout} }"
                     }

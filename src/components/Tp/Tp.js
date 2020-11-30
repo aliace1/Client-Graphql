@@ -35,7 +35,7 @@ class Tp extends Component {
     }
 
     setItems(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query {classes {_id nom} }"
             }
@@ -52,7 +52,7 @@ class Tp extends Component {
     }
 
     getAllDevoirs(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{devoirs{_id titre matiere contenu date creator}}"
             },

@@ -9,7 +9,6 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button"
-// import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 
 import { getClasseQuery, createArticleMutation } from "../../components/queries/queries"
@@ -45,56 +44,6 @@ class Add extends React.Component {
         }    
     }
 
-    // componentDidMount(){
-    //     this.setItems()
-    // }
-
-    // setItems(){
-    //     axios.post('http://localhost:8000/graphql', null, {
-    //         params:{
-    //             query: "query {classes {_id, nom} }"
-    //         }
-    //     })
-    //     .then(({data:{data:{classes}}}) => {
-    //         // console.log(classes[0]);
-    //         this.setState({
-    //             creators: classes
-    //         }, () => this.setState({creator: classes[0]._id}))
-    //     })
-    //     .catch(err => {
-    //         console.log({err});
-    //     })
-    // }
-
-    // onSubmit(){
-    //     const { titre, matiere, contenu, date, creator, creators } = this.state;
-    //     axios.post('http://localhost:8000/graphql', null, {
-    //         params:{
-    //             query: "mutation {createArticle(articleInput:{titre:\""+titre+"\",matiere:\""+matiere+"\",contenu:\""+contenu+"\",date:\""+date+"\",creator:\""+creator+"\"}){ titre matiere contenu date}}"
-    //         },
-    //         headers:{
-    //             Authorization:'Bearer '+localStorage.getItem("Token")
-    //         }
-    //     })
-    //     .then(({data:{data:{createArticle}}}) => {
-    //         // console.log(data);
-    //         if(createArticle){
-    //             this.setState({
-    //                 titre:'',
-    //                 matiere:'',
-    //                 contenu:'',
-    //                 date:new Date(),
-    //                 creator:creators[0]
-    //             })
-    //         }
-    //         this.props.history.push('/Cours')
-    //     })
-    //     .catch(err => {
-    //         console.log({err});
-    //     })
-    // }
-    
-
     updateContent = (value) => {
         // console.log(value);
         this.setState({ contenu: value });
@@ -102,22 +51,18 @@ class Add extends React.Component {
 
       onSubmit(e){
           e.preventDefault();
-          console.log(this.state);
-        this.props.createArticleMutation();
+        //   console.log(this.state);
+        this.props.createArticleMutation({
+            variables:{ 
+                titre:this.state.titre,
+                matiere:this.state.matiere,
+                contenu:this.state.contenu,
+                date:this.state.date,
+                creator:this.state.creator
+            }
+        });
+        this.props.history.push('/Cours');
       }
-    
-
-    // onChange = (e) => {
-    //     // console.log(e);
-    //     // const value = e.currentTarget.value;
-    //     // this.setState({
-    //     //     titre:value,
-    //     //     matiere:value,
-    //     //     date:new Date(),
-    //     //     creator:value,
-    //     // })
-    //     this.setState({[e.target.name]: e.target.value})
-    // }
 
     render() {
         // console.log(this.props);

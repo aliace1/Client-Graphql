@@ -44,7 +44,7 @@ class Verification extends Component {
     }
 
     getClasse(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query:"query {classes {_id, nom} }"
             },
@@ -67,7 +67,7 @@ class Verification extends Component {
     }
 
     getData(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query:"query {users {_id, nom, prenom, matricule, email, creator, isAjout} }"
             },
@@ -94,7 +94,7 @@ class Verification extends Component {
             const isAj = a.isAjout==='y'?'n':'y'
             const query = "mutation{ updateUser(userId:\""+a._id+"\",nom:\""+a.nom+"\",prenom:\""+a.prenom+"\",matricule:\""+a.matricule+"\",email:\""+a.email+"\",isAdmin:\""+a.isAdmin+"\",isAjout:\""+isAj+"\"){nom prenom matricule email password isAjout creator}}"
             // console.log(query);
-            axios.post('http://localhost:8000/graphql', null, {
+            axios.post('https://api.fordisco-ius.com/graphql', null, {
                 params:{
                     query
                 }

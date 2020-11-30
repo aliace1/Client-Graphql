@@ -1,6 +1,8 @@
 .divCentral {
-    margin: auto;
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
     min-width: 100%;
+
 }
 .App {
     min-width: 100%;

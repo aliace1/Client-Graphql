@@ -47,7 +47,7 @@ class Liste extends Component {
     }
 
     getClasse(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query:"query {classes {_id, nom} }"
             },
@@ -70,7 +70,7 @@ class Liste extends Component {
     }
 
     getList(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query:"query {users {_id, nom, prenom, matricule, email, creator, isAjout} }"
             },

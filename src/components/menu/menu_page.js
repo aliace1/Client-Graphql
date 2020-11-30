@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'jquery/dist/jquery.min';
 import './Style.css';
-import Button from "@material-ui/core/Button";
 
 class MenuPage extends Component {
     render() {

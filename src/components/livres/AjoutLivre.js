@@ -7,12 +7,15 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-// import { CKEditor } from '@ckeditor/ckeditor5-react';
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button"
-import axios from "axios";
 import Navbar from "../Navbar/Navbar";
+
+import { getClasseQuery, createLivreMutation } from "../../components/queries/queries"
+
+//Client Apollo Setup
+import { graphql } from "react-apollo";
+import {flowRight as compose} from 'lodash';
 
 
 class AjoutLivre extends React.Component {
@@ -23,58 +26,37 @@ class AjoutLivre extends React.Component {
             matiere:'',
             contenu:'',
             date:new Date(),
-            creator:' ',
-            creators: []
+            creator:''
         }
     }
 
-    componentDidMount(){
-        this.setItems()
+    displayClasses(){
+        var data = this.props.getClasseQuery;
+        // console.log(this.props);
+        if(!data.loading){
+            return data.classes && data.classes.map((classe, index) => {
+                // console.log(classe.nom);
+                return( <MenuItem key={index} value={classe._id}>
+                    {classe.nom}
+                </MenuItem>);
+            });
+        }else{
+            return( <MenuItem>Loading....</MenuItem> );
+        }    
     }
 
-    setItems(){
-        axios.post('http://localhost:8000/graphql', null, {
-            params:{
-                query: "query {classes {_id, nom} }"
+    onSubmit(e){
+        e.preventDefault();
+        this.props.createLivreMutation({
+            variables:{
+                titre:this.state.titre,
+                matiere:this.state.matiere,
+                contenu:this.state.contenu,
+                date:this.state.date,
+                creator:this.state.creator
             }
-        })
-        .then(({data:{data:{classes}}}) => {
-            // console.log(classes[0]);
-            this.setState({
-                creators: classes
-            }, () => this.setState({creator: classes[0]._id}))
-        })
-        .catch(err => {
-            console.log({err});
-        })
-    }
-
-    onSubmit(){
-        const { titre, matiere, contenu, date, creator, creators } = this.state;
-        axios.post('http://localhost:8000/graphql', null, {
-            params:{
-                query: "mutation {createLivre(livreInput:{titre:\""+titre+"\",matiere:\""+matiere+"\",contenu:\""+contenu+"\",date:\""+date+"\",creator:\""+creator+"\"}){ titre matiere contenu date}}"
-            },
-            headers:{
-                Authorization:'Bearer '+localStorage.getItem("Token")
-            }
-        })
-        .then(({data:{data:{createLivre}}}) => {
-            // console.log(data);
-            if(createLivre){
-                this.setState({
-                    titre:'',
-                    matiere:'',
-                    contenu:'',
-                    date:new Date(),
-                    creator:creators[0]
-                })
-            }
-            this.props.history.push('/Livres')
-        })
-        .catch(err => {
-            console.log({err});
-        })
+        });
+        this.props.history.push('/Livres');
     }
     
 
@@ -82,23 +64,9 @@ class AjoutLivre extends React.Component {
         // console.log(value);
         this.setState({ contenu: value });
       };
-    
-
-    onChange = (e) => {
-        // console.log(e);
-        // const value = e.currentTarget.value;
-        // this.setState({
-        //     titre:value,
-        //     matiere:value,
-        //     date:new Date(),
-        //     creator:value,
-        // })
-        this.setState({[e.target.name]: e.target.value})
-    }
 
     render() {
         // console.log(this.props);
-        const { titre, matiere, contenu, creator, creators } = this.state;
         return (
             <div className="mt-4">
             <Navbar history = {this.props.history} />
@@ -113,25 +81,16 @@ class AjoutLivre extends React.Component {
                         label="Titre du cours"  
                         variant={"outlined"} 
                         type={'text'} fullWidth
-                        value={titre}
-                        name='titre'
-                        onChange={this.onChange.bind(this)}
+                        onChange={(e) => this.setState({ titre: e.target.value })}
                         />
                     </Grid>
                     <Grid item md={8} xs={12}>
                         <Select variant="outlined" 
                         label="Classe" fullWidth
-                        value={creator}
-                        name='creator' 
-                        onChange={this.onChange.bind(this)}
+                        onChange={(e) => this.setState({ creator: e.target.value })}
                         >
-                            {
-                                creators && creators.map((e, index) => {
-                                    return<MenuItem value={e._id} key={index}>
-                                    {e.nom}
-                                </MenuItem>
-                                })
-                            }
+                            <MenuItem />
+                                {this.displayClasses()}
                         </Select>
                     </Grid>
                    
@@ -140,27 +99,16 @@ class AjoutLivre extends React.Component {
                         label="Matière"  
                         variant={"outlined"} 
                         type={'text'} fullWidth
-                        value={matiere}
-                        name='matiere'
-                        onChange={this.onChange.bind(this)}
+                        onChange={(e) => this.setState({ matiere: e.target.value })}
                         />
                     </Grid>
                     <Grid item md={12} xs={12}>
-                        {/* <CKEditor
-                            editor={ClassicEditor}
-                            data={this.state.contenu}
-                            onChange={this.updateData}
-                            name='contenu'
-                            value={contenu}
-                        /> */}
 
                         <JoditEditor
                             editorRef={this.setRef}
                             value={this.state.contentu}
                             config={this.config}
                             onChange={this.updateContent}
-                            name='contenu'
-                            value={contenu}
                         />
 
                     </Grid>
@@ -185,4 +133,7 @@ class AjoutLivre extends React.Component {
     }
 }
 
-export default AjoutLivre
+export default compose(
+    graphql(getClasseQuery, { name:"getClasseQuery" }),
+    graphql(createLivreMutation, { name:"createLivreMutation" })
+)(AjoutLivre)

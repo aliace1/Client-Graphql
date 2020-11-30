@@ -36,7 +36,7 @@ class livres extends Component {
     }
 
     setItems(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query {classes {_id nom} }"
             }
@@ -53,7 +53,7 @@ class livres extends Component {
     }
 
     getLivres(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{livres{_id titre matiere contenu date creator}}"
             },

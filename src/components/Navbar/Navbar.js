@@ -75,7 +75,7 @@ const NavBar = ({history}) => {
     }
 
     if(localStorage.hasOwnProperty('isAjout')){
-        if(localStorage.getItem('isAjout') !== 'y'){
+        if(localStorage.getItem('isAjout' || 'isAdmin') !== 'y'){
             navLinks = nav2
         }
     }

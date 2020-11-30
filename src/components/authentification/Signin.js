@@ -28,7 +28,7 @@ class Signin extends Component {
     onSubmit(){
         const {email, password} = this.state
         // console.log(password);
-        axios.post('http://localhost:8000/graphql',null, { 
+        axios.post('https://api.fordisco-ius.com/graphql',null, { 
             params: {
                 query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin isAjout} }"
               }
@@ -56,7 +56,7 @@ class Signin extends Component {
 
     render() {
         return (
-            <div theme = {theme}>
+            <div className="sign-in" theme = {theme}>
                 <Navbar history = {this.props.history} />
                 <Paper elevation={2} className={'papper'}>
                     <Grid container spacing={2}>

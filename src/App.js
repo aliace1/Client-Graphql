@@ -10,7 +10,7 @@ import Cours from "./components/Cours/Cours";
 import Tp from "./components/Tp/Tp";
 import Livres from "./components/livres/Livres";
 import Add from "./components/Cours/Add";
-import ApolloClient, { InMemoryCache, HttpLink } from "apollo-boost";
+import ApolloClient, { InMemoryCache} from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import { setContext } from "apollo-link-context";
 import { createHttpLink } from "apollo-link-http";
@@ -30,43 +30,23 @@ import ModifierTp from "./components/Tp/Modifier-tp";
 import RespCommentaire from "./components/Commentaire/RespCommentaire";
 import LoginRegistre from "./components/Login/LoginRegistre";
 
-const uri = 'http://localhost:8000/graphql';
-// // const encoded = encodeURI(uri);
-
-// const client = new ApolloClient({
-//   // cache: new InMemoryCache(),
-//   // headers: {Authorization:'Bearer '+localStorage.getItem("Token")},
-//   uri,
-//   headers: {Authorization:'Bearer '+localStorage.getItem("Token")},
-//   cache: new InMemoryCache,
-//   defaultOptions: {
-//     mutate: { errorPolicy: 'ignore' },
-//   }
-// });
-
-// const client = new ApolloClient({
-//   link: new HttpLink({
-//     uri: "http://localhost:8000/graphql"
-//   }),
-//   cache: new InMemoryCache()
-// });
+const uri = 'https://api.fordisco-ius.com/graphql';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8000/graphql'
+  uri: 'https://api.fordisco-ius.com/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('Token');
   // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      Authorization: token ? `Bearer ${token}` : "Test",
     }
   }
 });
-
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),

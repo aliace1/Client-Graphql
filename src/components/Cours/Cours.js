@@ -34,7 +34,7 @@ class Cours extends Component {
     }
 
     setItems(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query {classes {_id nom} }"
             }
@@ -51,7 +51,7 @@ class Cours extends Component {
     }
 
     getArticles(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{articles{_id titre matiere contenu date creator}}"
             },
@@ -71,7 +71,7 @@ class Cours extends Component {
     }
     
     onClick(id){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{articles{titre matiere contenu date}}"
             },
