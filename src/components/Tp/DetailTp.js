@@ -36,7 +36,7 @@ class DetailTp extends Component {
     }
 
     getUsers(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{users{_id nom prenom matricule email}}"
             },
@@ -56,7 +56,7 @@ class DetailTp extends Component {
     }
 
     getDevoir(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{devoirs{_id, titre, matiere, contenu, date}}"
             },
@@ -80,7 +80,7 @@ class DetailTp extends Component {
     }
 
     getCommentaire(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{commentaires{_id commentaire date creator createdUsers{_id}}}"
             },
@@ -103,7 +103,7 @@ class DetailTp extends Component {
     }
 
     getRespCommentaire(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{respCommentaires{_id commentaire date creator idCommentaire createdUsers{_id}}}"
             },
@@ -124,7 +124,7 @@ class DetailTp extends Component {
     }
 
     handleDelete(id){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "mutation{deleteDevoir(devoirId:\""+id+"\"){action}}"
             }

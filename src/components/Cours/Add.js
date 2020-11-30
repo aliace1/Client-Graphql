@@ -31,7 +31,7 @@ class Add extends React.Component {
 
     displayClasses(){
         var data = this.props.getClasseQuery;
-        // console.log(this.props);
+        console.log(this.props);
         if(!data.loading){
             return data.classes && data.classes.map((classe, index) => {
                 // console.log(classe.nom);

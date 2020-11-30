@@ -37,7 +37,7 @@ class Detail extends React.Component {
     }
 
     getUsers(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{users{_id nom prenom matricule email}}"
             },
@@ -57,7 +57,7 @@ class Detail extends React.Component {
     }
 
     getCours(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{articles{_id titre matiere contenu date}}"
             },
@@ -81,7 +81,7 @@ class Detail extends React.Component {
     }
 
     getCommentaire(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{commentaires{_id commentaire date creator createdUsers{_id}}}"
             },
@@ -104,7 +104,7 @@ class Detail extends React.Component {
     }
 
     getRespCommentaire(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{respCommentaires{_id commentaire date creator idCommentaire createdUsers{_id}}}"
             },
@@ -130,7 +130,7 @@ class Detail extends React.Component {
     }
 
     handleDelete(id){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "mutation{deleteArticle(articleId:\""+id+"\"){action}}"
             },
