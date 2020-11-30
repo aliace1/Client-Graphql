@@ -26,7 +26,7 @@ class RespCommentaire extends React.Component {
     }
 
     getUser(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{users{_id nom prenom matricule email}}"
             },
@@ -50,7 +50,7 @@ class RespCommentaire extends React.Component {
         // console.log(this.props.match.params.id);
         switch(this.props.match.params.type){
             case 'Cours':
-                return axios.post('http://localhost:8000/graphql', null, {
+                return axios.post('https://api.fordisco-ius.com/graphql', null, {
                     params:{
                         query: "mutation{createRespCommentaire(respCommentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.idA+"\",idCommentaire:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
                     },
@@ -66,7 +66,7 @@ class RespCommentaire extends React.Component {
                     console.log({err});
                 })
             case 'Livres':
-                return axios.post('http://localhost:8000/graphql', null, {
+                return axios.post('https://api.fordisco-ius.com/graphql', null, {
                     params:{
                         query: "mutation{createRespCommentaire(respCommentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.idA+"\",idCommentaire:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
                     },
@@ -81,7 +81,7 @@ class RespCommentaire extends React.Component {
                     console.log({err});
                 })
             case 'Tp':
-                return axios.post('http://localhost:8000/graphql', null, {
+                return axios.post('https://api.fordisco-ius.com/graphql', null, {
                     params:{
                         query: "mutation{createRespCommentaire(respCommentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.idA+"\",idCommentaire:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
                     },

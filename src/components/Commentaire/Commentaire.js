@@ -28,7 +28,7 @@ class Commentaire extends React.Component {
     }
 
     getUsers(){
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{users{_id nom prenom matricule email}}"
             },
@@ -52,7 +52,7 @@ class Commentaire extends React.Component {
         const { commentaire, date, creators } = this.state;
         switch(this.props.match.params.type){
             case 'Cours':
-                return axios.post('http://localhost:8000/graphql', null, {
+                return axios.post('https://api.fordisco-ius.com/graphql', null, {
                     params:{
                         query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
                     },
@@ -71,7 +71,7 @@ class Commentaire extends React.Component {
                 })
 
             case 'Livres':
-                return axios.post('http://localhost:8000/graphql', null, {
+                return axios.post('https://api.fordisco-ius.com/graphql', null, {
                     params:{
                         query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
                     },
@@ -87,7 +87,7 @@ class Commentaire extends React.Component {
                 })
 
             case 'Tp':
-                return axios.post('http://localhost:8000/graphql', null, {
+                return axios.post('https://api.fordisco-ius.com/graphql', null, {
                     params:{
                         query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
                     },
