@@ -1,6 +1,5 @@
 .divCentral {
-    margin-top: 40px !important;
-    margin-bottom: 40px !important;
+    margin: auto;
     min-width: 100%;
 
 }

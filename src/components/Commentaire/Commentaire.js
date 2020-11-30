@@ -113,7 +113,7 @@ class Commentaire extends React.Component {
     render() {
         const { commentaire, creators } = this.state;
         return (
-            <div className="mt-4">
+            <div className="comment">
                 <Navbar history = {this.props.history} />
                 <Grid container className="grid-comment" spacing={2}>
                     <Typography variant={'h5'} className={'titre'}>
