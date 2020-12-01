@@ -47,7 +47,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start_server": "pm2 start ./node_modules/react-scripts/scripts/start.js --name front>",
+    "start_server": "pm2 start ./node_modules/react-scripts/scripts/start.js --name front",
     "stop_server": "pm2 stop front"
   },
   "eslintConfig": {
