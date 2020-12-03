@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Visibility from '@material-ui/icons/Visibility';
@@ -27,7 +25,7 @@ class Signin extends Component {
     }
     onSubmit(){
         const {email, password} = this.state
-        // console.log(password);
+        console.log(password);
         axios.post('https://api.fordisco-ius.com/graphql',null, { 
             params: {
                 query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin isAjout} }"
@@ -40,6 +38,18 @@ class Signin extends Component {
         }).catch(err => {
             console.log({err});
         })
+        // axios.post('http://localhost:8000/graphql',null, { 
+        //     params: {
+        //         query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin isAjout} }"
+        //       }
+        // }).then(({data:{data:{login: {token, isAdmin, isAjout}}}}) => {
+        //     localStorage.setItem('Token', token)
+        //     localStorage.setItem('isAdmin', isAdmin)
+        //     localStorage.setItem('isAjout', isAjout)
+        //     this.props.history.push('/')
+        // }).catch(err => {
+        //     console.log({err});
+        // })
     }
 
     onCHange (e) {
@@ -60,7 +70,7 @@ class Signin extends Component {
                 <Navbar history = {this.props.history} />
                 <Paper elevation={2} className={'papper'}>
                     <Grid container spacing={2}>
-                        <Typography variant={'h5'} className={'titre'}>
+                        <Typography variant={'h5'} className={'titre'} align={"center"} color={"primary"}>
                             Connexion
                         </Typography>
                         <Grid item xs={12}>
@@ -91,17 +101,14 @@ class Signin extends Component {
                             </TextField>
                         </Grid>
                         <Grid item md={6} xs={12}>
-                            <FormControlLabel control={<Checkbox name="checkedC" />} label="Maintenir la connexion" />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                            <Button variant="contained" onClick={this.onSubmit.bind(this)} color={"secondary"} fullWidth>
-                                Se connecter
-                            </Button>
-                        </Grid>
-                        <Grid item md={6} xs={12}>
                             <Link to="/Signup">
                                 <p>S'enregistrer</p>
                             </Link>
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                            <Button variant="contained" onClick={this.onSubmit.bind(this)} color={"primary"} fullWidth>
+                                Se connecter
+                            </Button>
                         </Grid>
                     </Grid>
                 </Paper>

@@ -45,6 +45,14 @@ class Detail extends React.Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{users{_id nom prenom matricule email}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data:{users}}}) => {
             // console.log({e});
             this.setState({
@@ -65,6 +73,14 @@ class Detail extends React.Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{articles{_id titre matiere contenu date}}"
+        //     },
+        //     headers: {
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data:{articles}}}) => {
             // console.log(e);
             var stock = articles.filter(e => e._id === this.props.match.params.id)[0];
@@ -89,6 +105,14 @@ class Detail extends React.Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{commentaires{_id commentaire date creator createdUsers{_id}}}"
+        //     },
+        //     headers: {
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data:{commentaires}}}) => {
             // console.log(commentaires);
             // console.log(e);
@@ -113,12 +137,16 @@ class Detail extends React.Component {
             },
             cancelToken:axios.CancelToken.source().token
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{respCommentaires{_id commentaire date creator idCommentaire createdUsers{_id}}}"
+        //     },
+        //     headers: {
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     },
+        //     cancelToken:axios.CancelToken.source().token
+        // })
         .then(({data:{data:{respCommentaires}}}) => {
-            // console.log(respCommentaires[0]);
-            
-            // for(var r in respCommentaires){
-            //     console.log(r.commentaire);
-            // }
             var stock1 = respCommentaires.filter(j => j.creator === this.props.match.params.id);
             this.setState({
                 repCommentaire: stock1
@@ -130,7 +158,15 @@ class Detail extends React.Component {
     }
 
     handleDelete(id){
-        axios.post('https://api.fordisco-ius.com/graphql', null, {
+        // axios.post('https://api.fordisco-ius.com/graphql', null, {
+        //     params:{
+        //         query: "mutation{deleteArticle(articleId:\""+id+"\"){action}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
+        axios.post('http://localhost:8000/graphql', null, {
             params:{
                 query: "mutation{deleteArticle(articleId:\""+id+"\"){action}}"
             },

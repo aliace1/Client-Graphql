@@ -6,21 +6,24 @@ import "./footer.css"
 class Footer extends React.Component {
     render() {
         return (
-            <footer>
-                <div className="footer-top">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-4 col-sm-6 col-xs-12 segment-one">
-                                <h2>En savoir plus</h2>
-                                <p>Ce site est crée par des professeurs, praticien en Droit. Ce
-                projet consiste à former, discuter le Droit. Corriger les
-                étudiants aux fautes eventielles au devoir comme la méthodologie
-                ....</p>
-                            </div>
 
-                            <div className="col-md-4 col-sm-6 col-xs-12 segment-two">
-                                <h2>Liens</h2>
-                                <ul>
+            <div className="main-footer">
+                <div className="container">
+                    <div className="row">
+                        {/* Colonne 1 */}
+                        <div className="col">
+                            <h4 className="titre">En Savoir plus</h4>
+                            <p className="list-unstyled">
+                            Ce site est crée par des professeurs, praticien en Droit. Ce
+                            projet consiste à former, discuter le Droit. Corriger les
+                            étudiants aux fautes eventielles au devoir comme la méthodologie
+                            ....
+                            </p>
+                        </div>
+                        {/* Colonne 2 */}
+                        <div className="col">
+                            <h4 className="titre">Menu</h4>
+                                <ul className="list-unstyled">
                                     <li>
                                         <Link to="/Cours">Cours</Link>
                                     </li>
@@ -30,34 +33,44 @@ class Footer extends React.Component {
                                     <li>
                                         <Link to="/Tp">Travaux pratique</Link>
                                     </li>
-                                </ul>
-                            </div>
-
-                            <div className="col-md-4 col-sm-6 col-xs-12 segment-three">
-                                <h2>Rejoignez-nos</h2>
-                                <Link to="/#">
-                                    <i className="fa fa-facebook"></i>
-                                </Link>
-                                <Link to="/#">
-                                    <i className="fa fa-twitter"></i>
-                                </Link>
-                                <Link to="/#">
-                                    <i className="fa fa-linkedin"></i>
-                                </Link>
-                            </div>
+                            </ul>
+                        </div>
+                        {/* Colonne 3 */}
+                        <div className="col">
+                            <h4 className="titre">Contacts</h4>
+                            <ul className="list-unstyled">
+                                <li>
+                                    <i className="fa fa-map-marker"></i>{" "}Fianarantsoa 301, Madagascar
+                                </li>
+                                <li>
+                                    <i className="fa fa-envelope"></i> {" "} fordisco.ius@outlook.fr
+                                </li>
+                                <li>
+                                    <i className="fa fa-phone"></i> {" "} + 261 20 75 931 93
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                    <div className="row">
+                        <p>
+                            &copy;{" "} 
+                            <Link to="/">
+                                <img
+                                src="assets/img/footer.png"
+                                    alt="logo"
+                                    style={{ width: "50px" }}
+                                />
+                            </Link>{" "} {new Date().getFullYear()}{" "} | Par {" "}
+                            <a
+                                href="https://www.linkedin.com/in/rasolonjatovo-martino-2a4841151/"
+                                className="linkedinLink"
+                                target="_blank">
+                                    Martino
+                            </a> 
+                        </p>
+                    </div>
                 </div>
-                <p className="footer-bottom-text">
-                    &copy;{" "}{new Date().getFullYear()}{" "} <img src="assets/img/footer.png" alt="logo" style={{width:60, marginTop:8}} /> {" "} par {" "}
-                    <a href="https://www.linkedin.com/in/rasolonjatovo-martino-2a4841151/" 
-                        className="linkedinLink"
-                        target="_blank"
-                    >
-                        Martino
-                    </a>
-                </p>
-            </footer>
+            </div>
         )
     }
 }

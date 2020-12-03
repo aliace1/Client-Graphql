@@ -46,6 +46,19 @@ class Signup extends Component {
         }).catch(err => {
             console.log({err});
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query {classes {_id, nom} }"
+        //     }
+        // }).then(({data:{data:{classes}}}) => {
+        //     // console.log(classes[0]);
+        //     this.setState({
+        //         creators:classes
+        //     }, () => this.setState({creator: classes[0]._id}))
+        //     // this.props.history.push('/Verification')
+        // }).catch(err => {
+        //     console.log({err});
+        // })
     }
     
     onSubmit(){
@@ -58,6 +71,13 @@ class Signup extends Component {
                 headers:{
                     Authorization:'Bearer '+localStorage.getItem("Token")
                 }
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "mutation {createUser(userInput:{nom:\""+nom+"\",prenom:\""+prenom+"\",matricule:\""+matricule+"\",email:\""+email+"\",password:\""+password+"\",creator:\""+creator+"\",isAdmin:\"n\",isAjout:\"n\"}){matricule nom prenom email creator}}"
+        //     }, 
+        //         headers:{
+        //             Authorization:'Bearer '+localStorage.getItem("Token")
+        //         }
             
        
         }).then(({data:{data:{createUser: {nom,prenom,matricule,email,creator}}}}) => {
@@ -66,7 +86,13 @@ class Signup extends Component {
                     params: {
                         query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin isAjout} }"
                     }
-                }).then(({data:{data:{login: {token, isAdmin, isAjout}}}}) => {
+                })
+                // axios.post('http://localhost:8000/graphql',null, { 
+                //     params: {
+                //         query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin isAjout} }"
+                //     }
+                // })
+                .then(({data:{data:{login: {token, isAdmin, isAjout}}}}) => {
                     this.setState({
                         nom:'',
                         prenom:'',
@@ -110,7 +136,7 @@ class Signup extends Component {
             <Paper className={'papper'} elevation={1}>
                 <Grid container spacing={2}>
                     <Grid item md={12} xs={12}>
-                        <Typography variant={'h5'} className={'titre'}>
+                        <Typography variant={'h5'} className={'titre'} align={"center"} color={"primary"}>
                             Créer un compte
                         </Typography>
                     </Grid>

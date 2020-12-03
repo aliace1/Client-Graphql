@@ -18,6 +18,7 @@ import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import Parse from "html-react-parser";
 import Moment from "react-moment";
+import jwt from 'jwt-decode';
 
 class Tp extends Component {
     constructor(props){
@@ -62,13 +63,36 @@ class Tp extends Component {
         })
         .then(({data:{data:{devoirs}}}) => {
             // console.log(e);
+            const creator = jwt(localStorage.getItem("Token")).creator
+            const datas = devoirs.filter(e => (e.creator === creator || e.creator === '616c6c50726976696c656765'))
             this.setState({
-                datas:devoirs
+                datas
             })
         })
         .catch(err => {
             console.log({err});
         })
+        // axios.post('https://api.fordisco-ius.com/graphql', null, {
+        //     params:{
+        //         query: "query{devoirs{_id titre matiere contenu date creator}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
+        // .then(({data:{data:{devoirs}}}) => {
+        //     // console.log(articles);
+        //     const creator = jwt(localStorage.getItem("Token")).creator
+        //     const datas = devoirs.filter(e => {
+        //         return (e.creator === creator || creator === '616c6c50726976696c656765')
+        //     })
+        //     this.setState({
+        //         datas
+        //     })
+        // })
+        // .catch(err => {
+        //     console.log({err});
+        // })
     }
 
     render() {
@@ -122,7 +146,7 @@ class Tp extends Component {
                                         cre = stock.nom
                                     }
                                 return(
-                                    <Card className={"root"} key={index}>
+                                    <Card className={"root"} key={index} elevation={4}>
                                         <div className="text-center">
                                             {
                                                 cre

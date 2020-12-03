@@ -51,12 +51,22 @@ class Verification extends Component {
             headers: {
                 Authorization: 'Bearer '+ localStorage.getItem('Token')
             }
-        }).then(e => {
+        })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query:"query {classes {_id, nom} }"
+        //     },
+        //     headers: {
+        //         Authorization: 'Bearer '+ localStorage.getItem('Token')
+        //     }
+        // })
+        .then(e => {
             // console.log(e.data.data);
             this.setState({
                 stocks:e.data.data.classes
             })
-        }).catch(e=> console.log({e}))
+        })
+        .catch(e=> console.log({e}))
     }
 
     setFilter(id){
@@ -75,6 +85,14 @@ class Verification extends Component {
                 Authorization: 'Bearer '+ localStorage.getItem('Token')
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query:"query {users {_id, nom, prenom, matricule, email, creator, isAjout} }"
+        //     },
+        //     headers: {
+        //         Authorization: 'Bearer '+ localStorage.getItem('Token')
+        //     }
+        // })
         .then(e=>{
             // console.log(e)
             this.setState({
@@ -99,6 +117,11 @@ class Verification extends Component {
                     query
                 }
             })
+            // axios.post('http://localhost:8000/graphql', null, {
+            //     params:{
+            //         query
+            //     }
+            // })
             .then(({data:{data:{updateUser}}}) => {
                 // console.log(data);
                 this.setState({

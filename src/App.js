@@ -31,9 +31,11 @@ import RespCommentaire from "./components/Commentaire/RespCommentaire";
 import LoginRegistre from "./components/Login/LoginRegistre";
 
 const uri = 'https://api.fordisco-ius.com/graphql';
+// const uri = 'http://localhost:8000/graphql';
 
 const httpLink = createHttpLink({
   uri: 'https://api.fordisco-ius.com/graphql'
+  // uri: 'http://localhost:8000/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -58,7 +60,7 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <BrowserRouter>
-        <Navbar />
+        <Navbar elevation={10}/>
           <div className={"divCentral"}>
               <Route exact path="/" component={MenuPage}/>
               <Route path="/Signup" component={Signup} exact/>

@@ -84,26 +84,6 @@ const NavBar = ({history}) => {
         isConnecter = true
     }
 
-
-
-
-    // const dialog = () => {
-    //     return (
-    //         <Dialog onClose={"handleClose"} aria-labelledby="simple-dialog-title" open={"open"}>
-    //             <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-    //             <List>
-    //                 <ListItem autoFocus button >
-    //                     <ListItemAvatar>
-    //                         <Avatar>
-    //                             <AddIcon />
-    //                         </Avatar>
-    //                     </ListItemAvatar>
-    //                     <ListItemText primary="Add account" />
-    //                 </ListItem>
-    //             </List>
-    //         </Dialog>
-    //     )
-    // };
     return (
         <React.Fragment>
             <HideOnScroll>

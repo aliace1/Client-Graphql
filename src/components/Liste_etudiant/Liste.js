@@ -6,13 +6,11 @@ import TableRow from "@material-ui/core/TableRow";
 import withStyles from "@material-ui/core/styles/withStyles";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import Chip from "@material-ui/core/Chip";
-// import list from "./liste_demo";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
-// import EditIcon from '@material-ui/icons/Edit';
 import Navbar from "../Navbar/Navbar";
+import 'font-awesome/css/font-awesome.min.css';
+import { Button } from '@material-ui/core';
 
 
 const StyledTableRow = withStyles((theme) => ({
@@ -54,12 +52,22 @@ class Liste extends Component {
             headers: {
                 Authorization: 'Bearer '+ localStorage.getItem('Token')
             }
-        }).then(e => {
+        })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query:"query {classes {_id, nom} }"
+        //     },
+        //     headers: {
+        //         Authorization: 'Bearer '+ localStorage.getItem('Token')
+        //     }
+        // })
+        .then(e => {
             // console.log(e.data.data);
             this.setState({
                 stocks:e.data.data.classes
             })
-        }).catch(e=> console.log({e}))
+        })
+        .catch(e=> console.log({e}))
     }
 
     setFilter(id){
@@ -78,6 +86,14 @@ class Liste extends Component {
                 Authorization: 'Bearer '+ localStorage.getItem('Token')
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query:"query {users {_id, nom, prenom, matricule, email, creator, isAjout} }"
+        //     },
+        //     headers: {
+        //         Authorization: 'Bearer '+ localStorage.getItem('Token')
+        //     }
+        // })
         .then(e=>{
             // console.log(e)
             this.setState({
@@ -87,8 +103,27 @@ class Liste extends Component {
         .catch(e=>console.log({e}))
     }
 
+    
+    handleDelete(id){
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
+            params:{
+                query:  "mutation{deleteUser(userId:\""+id+"\"){action}}"
+            }
+        })
+        .then((e) => {
+            console.log({e});
+            // if(data.deleteUser.action){
+            //     // console.log("returnList");
+            //     this.props.history.push('/Membres')
+            // }
+        })
+        .catch(err => {
+            console.log({err});
+        })
+    }
+
     render() {
-        const { datas } = this.state
+        const { datas, _id } = this.state;
         return (
             <div className={'test'}>
                 <Navbar history = {this.props.history} />
@@ -102,8 +137,8 @@ class Liste extends Component {
                                 <StyledTableCell align="left">Prénom</StyledTableCell>
                                 <StyledTableCell align="left">Adresse e-mail</StyledTableCell>
                                 <StyledTableCell align="left">Classe</StyledTableCell>
-                                <StyledTableCell align="center">Action 1</StyledTableCell>
-                                <StyledTableCell align="center">Action 2</StyledTableCell>
+                                {/* <StyledTableCell align="center">Editer</StyledTableCell> */}
+                                <StyledTableCell align="center">Suprimer</StyledTableCell>
                             </TableRow>
                         </TableHead>
                             <TableBody >
@@ -116,6 +151,12 @@ class Liste extends Component {
                                                 <StyledTableCell align="left"> {e.prenom} </StyledTableCell>
                                                 <StyledTableCell align="left"> {e.email} </StyledTableCell>
                                                 <StyledTableCell align="left"> {this.setFilter(e.creator)} </StyledTableCell>
+                                                {/* <StyledTableCell align="center"> <i className="fa fa-pencil" /> </StyledTableCell> */}
+                                                <StyledTableCell align="center">
+                                                    <Button onClick={this.handleDelete.bind(this, _id)}>
+                                                        <i className="fa fa-trash" /> 
+                                                    </Button>
+                                                </StyledTableCell>
                                             </StyledTableRow>
                                         )
                                     })

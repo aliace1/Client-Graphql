@@ -1,7 +1,8 @@
 .papper {
     flex-grow: 1;
     max-width: 500px;
-    margin:auto;
+    margin: auto;
+    margin-top: 8px !important;
     justify-content:center;
     padding: 1rem;
     elevation: lower;

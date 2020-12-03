@@ -1,20 +1,3 @@
-/*navbarDisplayFlex: {*/
-/*    display: `flex`,*/
-/*    justifyContent: `space-between`,*/
-/*},*/
-/*navListDisplayFlex: {*/
-/*    display: `flex`,*/
-/*    justifyContent: `space-between`*/
-/*},*/
-/*linkText: {*/
-/*    textDecoration: `none`,*/
-/*    color: `white`*/
-/*},*/
-/*title: {*/
-/*    flexGrow: 1,*/
-/*    margin:"auto"*/
-/*},*/
-
 .navbarDisplayFlex {
     display: flex;
     justify-content: space-between;

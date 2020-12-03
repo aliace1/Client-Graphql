@@ -45,6 +45,14 @@ class DetailLivre extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{users{_id nom prenom matricule email}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data:{users}}}) => {
             // console.log({e});
             this.setState({
@@ -65,6 +73,14 @@ class DetailLivre extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{livres{_id, titre, matiere, contenu, date}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data:{livres}}}) => {
             // console.log(e);
             var stock2 = livres.filter(e => e._id === this.props.match.params.id)[0];
@@ -89,6 +105,14 @@ class DetailLivre extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{commentaires{_id commentaire date creator createdUsers{_id}}}"
+        //     },
+        //     headers: {
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data:{commentaires}}}) => {
             // console.log(commentaires);
             // console.log(e);
@@ -112,6 +136,14 @@ class DetailLivre extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{respCommentaires{_id commentaire date creator idCommentaire createdUsers{_id}}}"
+        //     },
+        //     headers: {
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data:{respCommentaires}}}) => {
             // console.log(respCommentaires);
             var stock1 = respCommentaires.filter(k => k.creator === this.props.match.params.id);
@@ -133,6 +165,14 @@ class DetailLivre extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "mutation{deleteLivre(livreId:\""+id+"\"){action}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data}}) => {
             if(data.deleteLivre.action){
                 this.props.history.push('/Livres')

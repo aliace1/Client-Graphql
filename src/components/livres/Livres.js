@@ -18,6 +18,7 @@ import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import Parse from "html-react-parser";
 import Moment from "react-moment";
+import jwt from 'jwt-decode';
 
 
 class livres extends Component {
@@ -41,6 +42,11 @@ class livres extends Component {
                 query: "query {classes {_id nom} }"
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query {classes {_id nom} }"
+        //     }
+        // })
         .then(({data:{data:{classes}}}) => {
             // console.log(classes[0]);
             this.setState({
@@ -53,6 +59,33 @@ class livres extends Component {
     }
 
     getLivres(){
+        // axios.post('https://api.fordisco-ius.com/graphql', null, {
+        //     params:{
+        //         query: "query{livres{_id titre matiere contenu date creator}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{livres{_id titre matiere contenu date creator}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
+        // .then(({data:{data:{livres}}})=> {
+        //     // console.log(e);
+        //     const creator = jwt(localStorage.getItem("Token")).creator
+        //     const datas = livres.filter(e => (e.creator === creator || e.creator === '616c6c50726976696c656765'))
+        //     this.setState({
+        //         datas
+        //     })
+        // })
+        // .catch(err => {
+        //     console.log({err});
+        // })
         axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{livres{_id titre matiere contenu date creator}}"
@@ -61,10 +94,14 @@ class livres extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
-        .then(({data:{data:{livres}}})=> {
-            // console.log(e);
+        .then(({data:{data:{livres}}}) => {
+            // console.log(articles);
+            const creator = jwt(localStorage.getItem("Token")).creator
+            const datas = livres.filter(e => {
+                return (e.creator === creator || creator === '616c6c50726976696c656765')
+            })
             this.setState({
-                datas:livres
+                datas
             })
         })
         .catch(err => {
@@ -123,7 +160,7 @@ class livres extends Component {
                                         cre = stock.nom
                                     }
                                 return(
-                                    <Card className={"root"} key={index}>
+                                    <Card className={"root"} key={index} elevation={4}>
                                         <div className="text-center">
                                             {
                                                 cre

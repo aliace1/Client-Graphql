@@ -18,6 +18,7 @@ import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import Parse from "html-react-parser";
 import Moment from 'react-moment';
+import jwt from 'jwt-decode';
 
 class Cours extends Component {
     constructor(props){
@@ -39,6 +40,11 @@ class Cours extends Component {
                 query: "query {classes {_id nom} }"
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query {classes {_id nom} }"
+        //     }
+        // })
         .then(({data:{data:{classes}}}) => {
             // console.log(classes[0]);
             this.setState({
@@ -51,6 +57,24 @@ class Cours extends Component {
     }
 
     getArticles(){
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{articles{_id titre matiere contenu date creator}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
+        // .then(({data:{data:{articles}}}) => {
+        //     // console.log(articles);
+        //     const creator = jwt(localStorage.getItem("Token")).creator
+        //     const datas = articles.filter(e => {
+        //         return (e.creator === creator || creator === '616c6c50726976696c656765')
+        //     })
+        //     this.setState({
+        //         datas
+        //     })
+        // })
         axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "query{articles{_id titre matiere contenu date creator}}"
@@ -60,9 +84,13 @@ class Cours extends Component {
             }
         })
         .then(({data:{data:{articles}}}) => {
-            // console.log(articles);
+            console.log(articles);
+            const creator = jwt(localStorage.getItem("Token")).creator
+            const datas = articles.filter(e => {
+                return (e.creator === creator || creator === '616c6c50726976696c656765')
+            })
             this.setState({
-                datas:articles,
+                datas
             })
         })
         .catch(err => {
@@ -79,6 +107,14 @@ class Cours extends Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{articles{titre matiere contenu date}}"
+        //     },
+        //     headers: {
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data:{articles}}}) => {
             this.setState({
                 datas:[ ...this.state.datas.filter(e => e._id === id), articles ]
@@ -141,7 +177,7 @@ class Cours extends Component {
                                         cre = stock.nom
                                     }
                                     return(
-                                        <Card className={"root"} key={index}>
+                                        <Card className={"root"} key={index} elevation={4}>
                                             <div className="text-center">
                                                 {
                                                     cre

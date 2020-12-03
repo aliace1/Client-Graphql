@@ -36,6 +36,14 @@ class Commentaire extends React.Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{users{_id nom prenom matricule email}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data:{users}}}) => {
             // console.log({e});
             this.setState({
@@ -60,6 +68,14 @@ class Commentaire extends React.Component {
                         Authorization:'Bearer '+localStorage.getItem("Token")
                     }
                 })
+                // return axios.post('http://localhost:8000/graphql', null, {
+                //     params:{
+                //         query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
+                //     },
+                //     headers:{
+                //         Authorization:'Bearer '+localStorage.getItem("Token")
+                //     }
+                // })
                 .then(({data:{data:{createCommentaire}}}) => {
                     // console.log(createCommentaire);
                     
@@ -79,6 +95,14 @@ class Commentaire extends React.Component {
                         Authorization:'Bearer '+localStorage.getItem("Token")
                     }
                 })
+                // return axios.post('http://localhost:8000/graphql', null, {
+                //     params:{
+                //         query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
+                //     },
+                //     headers:{
+                //         Authorization:'Bearer '+localStorage.getItem("Token")
+                //     }
+                // })
                 .then(({data:{data:{createCommentaire}}}) => {
                     this.props.history.push('/Detail-livre/'+this.props.match.params.id)
                 })
@@ -95,6 +119,14 @@ class Commentaire extends React.Component {
                         Authorization:'Bearer '+localStorage.getItem("Token")
                     }
                 })
+                // return axios.post('http://localhost:8000/graphql', null, {
+                //     params:{
+                //         query: "mutation{createCommentaire(commentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
+                //     },
+                //     headers:{
+                //         Authorization:'Bearer '+localStorage.getItem("Token")
+                //     }
+                // })
                 .then(({data:{data:{createCommentaire}}}) => {
                     this.props.history.push('/DetailTp/'+this.props.match.params.id)
                 })

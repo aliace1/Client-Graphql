@@ -10,6 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Navbar from "../Navbar/Navbar";
+import  axios from 'axios';
 
 import { getClasseQuery, getCoursQuery, updateArticleMutation } from "../../components/queries/queries";
 
@@ -28,6 +29,10 @@ class ModifieCours extends React.Component {
             contenu:'',
             creator:' '
         }
+    }
+
+    componentDidMount(){
+        this.getCours()
     }
 
     displayClasses(){
@@ -50,33 +55,33 @@ class ModifieCours extends React.Component {
         console.log(this.props);
     }
 
-    // getLivre(){
-    //     axios.post('http://localhost:8000/graphql', null, {
-    //         params:{
-    //             query: "query{articles{_id, titre, matiere, contenu, date}}"
-    //         },
-    //         headers:{
-    //             Authorization:'Bearer '+localStorage.getItem("Token")
-    //         }
-    //     })
-    //     .then(({data:{data:{articles}}}) => {
-    //         // console.log(lovres);
-    //         var stock = articles.filter(e => e._id === this.props.match.params.id)[0];
-    //         // console.log(stock, this.props.match.params.id);
-    //         if(stock){
-    //             this.setState({
-    //                 _id:stock._id,
-    //                 titre:stock.titre,
-    //                 matiere:stock.matiere,
-    //                 contenu:stock.contenu,
-    //             })
-    //         }
-    //         // this.props.history.pop()
-    //     })
-    //     .catch(err => {
-    //         console.log({err});
-    //     })
-    // }
+    getCours(){
+        axios.post('http://localhost:8000/graphql', null, {
+            params:{
+                query: "query{articles{_id, titre, matiere, contenu, date}}"
+            },
+            headers:{
+                Authorization:'Bearer '+localStorage.getItem("Token")
+            }
+        })
+        .then(({data:{data:{articles}}}) => {
+            // console.log(lovres);
+            var stock = articles.filter(e => e._id === this.props.match.params.id)[0];
+            // console.log(stock, this.props.match.params.id);
+            if(stock){
+                this.setState({
+                    _id:stock._id,
+                    titre:stock.titre,
+                    matiere:stock.matiere,
+                    contenu:stock.contenu,
+                })
+            }
+            // this.props.history.pop()
+        })
+        .catch(err => {
+            console.log({err});
+        })
+    }
 
     onSubmit(e){
         console.log(updateArticleMutation);
@@ -99,7 +104,8 @@ class ModifieCours extends React.Component {
       };
 
     render() {
-        console.log(this.props.getCoursQuery);
+        // console.log(this.props.getCoursQuery);
+        const { titre, matiere, contenu, creator, creators } = this.state;
         return (
             <div className="mt-4"> 
             <Navbar history = {this.props.history} />
@@ -115,11 +121,15 @@ class ModifieCours extends React.Component {
                         variant={"outlined"} 
                         type={'text'} fullWidth
                         onChange={(e) => this.setState({ titre: e.target.value })}
+                        value={titre}
+                        name='titre'
                         />
                     </Grid>
                     <Grid item md={8} xs={12}>
                         <Select variant="outlined" 
                         label="Classe" fullWidth
+                        value={creator}
+                        name='creator'
                         onChange={(e) => this.setState({ creator: e.target.value })}
                         >
                             <MenuItem />
@@ -132,6 +142,8 @@ class ModifieCours extends React.Component {
                         label="Matière"  
                         variant={"outlined"} 
                         type={'text'} fullWidth
+                        value={matiere}
+                        name='matiere'
                         onChange={(e) => this.setState({ matiere: e.target.value })}
                         />
                     </Grid>
@@ -142,6 +154,8 @@ class ModifieCours extends React.Component {
                             value={this.state.contentu}
                             config={this.config}
                             onChange={this.updateContent}
+                            value={contenu}
+                            name='contenu'
                         />
 
                     </Grid>
