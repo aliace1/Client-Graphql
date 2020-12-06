@@ -19,6 +19,17 @@ class Footer extends React.Component {
                             étudiants aux fautes eventielles au devoir comme la méthodologie
                             ....
                             </p>
+                            <ul className="font-icon">
+                                <li>
+                                    <a href="https://www.facebook.com/Fordisco-ius-101611061646677/" target="_blank"> <i className="fa fa-facebook"></i> </a>
+                                </li>
+                                <li>
+                                    <a href="#"> <i className="fa fa-twitter"></i> </a>
+                                </li>
+                                <li>
+                                    <a href="#"> <i className="fa fa-linkedin"></i> </a>
+                                </li>
+                            </ul>
                         </div>
                         {/* Colonne 2 */}
                         <div className="col">
