@@ -158,15 +158,7 @@ class Detail extends React.Component {
     }
 
     handleDelete(id){
-        // axios.post('https://api.fordisco-ius.com/graphql', null, {
-        //     params:{
-        //         query: "mutation{deleteArticle(articleId:\""+id+"\"){action}}"
-        //     },
-        //     headers:{
-        //         Authorization:'Bearer '+localStorage.getItem("Token")
-        //     }
-        // })
-        axios.post('http://localhost:8000/graphql', null, {
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "mutation{deleteArticle(articleId:\""+id+"\"){action}}"
             },
@@ -174,6 +166,14 @@ class Detail extends React.Component {
                 Authorization:'Bearer '+localStorage.getItem("Token")
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "mutation{deleteArticle(articleId:\""+id+"\"){action}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
         .then(({data:{data}}) => {
             // console.log({data});
             if(data.deleteArticle.action){
@@ -215,7 +215,7 @@ class Detail extends React.Component {
                         </Typography>
                     </CardContent>
 
-                    <CardContent>
+                    <CardContent className="noselect">
                         <Typography paragraph>Contenu :</Typography>
                             {Parser(contenu)}
                     </CardContent>

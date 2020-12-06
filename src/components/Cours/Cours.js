@@ -84,14 +84,16 @@ class Cours extends Component {
             }
         })
         .then(({data:{data:{articles}}}) => {
-            console.log(articles);
+            // console.log(articles);
             const creator = jwt(localStorage.getItem("Token")).creator
             const datas = articles.filter(e => {
                 return (e.creator === creator || creator === '616c6c50726976696c656765')
             })
-            this.setState({
-                datas
-            })
+            if(datas){
+                this.setState({
+                    datas
+                })
+            }
         })
         .catch(err => {
             console.log({err});
@@ -142,17 +144,17 @@ class Cours extends Component {
                             {
                                 localStorage.hasOwnProperty('isAdmin') ? (
                                     localStorage.getItem('isAdmin') === 'y' &&
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        size="large"
-                                        className={"button"}
-                                        startIcon={<AddIcon />}
-                                    >
-                                        <Link to="/Ajout_cours" >
-                                        Nouvelle cours
-                                        </Link>
-                                    </Button>
+                                    <Link to="/Ajout_cours">
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            size="large"
+                                            className={"button"}
+                                            startIcon={<AddIcon />}
+                                        >
+                                            Nouveau cours
+                                        </Button>
+                                    </Link>
                                 ):null
                             }
                         </Grid>

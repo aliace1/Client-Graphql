@@ -42,6 +42,22 @@ class RespCommentaire extends React.Component {
         .catch(err => {
             console.log({err});
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query{users{_id nom prenom matricule email}}"
+        //     },
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        // })
+        // .then(({data:{data:{users}}}) => {
+        //     this.setState({
+        //         datas: users
+        //     })
+        // })
+        // .catch(err => {
+        //     console.log({err});
+        // })
     }
 
     onSubmit(){
@@ -58,6 +74,14 @@ class RespCommentaire extends React.Component {
                         Authorization:'Bearer '+localStorage.getItem("Token")
                     }
                 })
+                // return axios.post('http://localhost:8000/graphql', null, {
+                //     params:{
+                //         query: "mutation{createRespCommentaire(respCommentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.idA+"\",idCommentaire:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
+                //     },
+                //     headers:{
+                //         Authorization:'Bearer '+localStorage.getItem("Token")
+                //     }
+                // })
                 .then(({data:{data:{createRespCommentaire}}}) => {
                     this.props.history.push('/Detail/'+this.props.match.params.idA)
                     // console.log(this.props.match.params.type);
@@ -74,6 +98,14 @@ class RespCommentaire extends React.Component {
                         Authorization:'Bearer '+localStorage.getItem("Token")
                     }
                 })
+                // return axios.post('http://localhost:8000/graphql', null, {
+                //     params:{
+                //         query: "mutation{createRespCommentaire(respCommentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.idA+"\",idCommentaire:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
+                //     },
+                //     headers:{
+                //         Authorization:'Bearer '+localStorage.getItem("Token")
+                //     }
+                // })
                 .then(({data:{data:{createRespCommentaire}}}) => {
                     this.props.history.push('/Detail-livre/'+this.props.match.params.idA)
                 })
@@ -89,6 +121,14 @@ class RespCommentaire extends React.Component {
                         Authorization:'Bearer '+localStorage.getItem("Token")
                     }
                 })
+                // return axios.post('http://localhost:8000/graphql', null, {
+                //     params:{
+                //         query: "mutation{createRespCommentaire(respCommentaireInput:{commentaire:\""+commentaire+"\",date:\""+date+"\",creator:\""+this.props.match.params.idA+"\",idCommentaire:\""+this.props.match.params.id+"\",createdUsers:\""+decoded+"\"}){_id commentaire date creator createdUsers{_id}}}"
+                //     },
+                //     headers:{
+                //         Authorization:'Bearer '+localStorage.getItem("Token")
+                //     }
+                // })
                 .then(({data:{data:{createRespCommentaire}}}) => {
                     this.props.history.push('/DetailTp/'+this.props.match.params.idA)
                 })

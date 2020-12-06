@@ -110,6 +110,11 @@ class Liste extends Component {
                 query:  "mutation{deleteUser(userId:\""+id+"\"){action}}"
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query:  "mutation{deleteUser(userId:\""+id+"\"){action}}"
+        //     }
+        // })
         .then((e) => {
             console.log({e});
             // if(data.deleteUser.action){

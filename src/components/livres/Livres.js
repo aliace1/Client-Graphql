@@ -59,14 +59,6 @@ class livres extends Component {
     }
 
     getLivres(){
-        // axios.post('https://api.fordisco-ius.com/graphql', null, {
-        //     params:{
-        //         query: "query{livres{_id titre matiere contenu date creator}}"
-        //     },
-        //     headers:{
-        //         Authorization:'Bearer '+localStorage.getItem("Token")
-        //     }
-        // })
         // axios.post('http://localhost:8000/graphql', null, {
         //     params:{
         //         query: "query{livres{_id titre matiere contenu date creator}}"
@@ -76,9 +68,9 @@ class livres extends Component {
         //     }
         // })
         // .then(({data:{data:{livres}}})=> {
-        //     // console.log(e);
+        //     // console.log(livres);
         //     const creator = jwt(localStorage.getItem("Token")).creator
-        //     const datas = livres.filter(e => (e.creator === creator || e.creator === '616c6c50726976696c656765'))
+        //     const datas = livres.filter(e => (e.creator === creator || creator === '616c6c50726976696c656765'))
         //     this.setState({
         //         datas
         //     })
@@ -125,17 +117,17 @@ class livres extends Component {
                         {
                             localStorage.hasOwnProperty('isAdmin') ? (
                                 localStorage.getItem('isAdmin') === 'y' && 
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    size="large"
-                                    className={"button"}
-                                    startIcon={<AddIcon />}
-                                >
-                                    <Link to="/AjoutLivre" >
-                                        Nouvelleaux livres
-                                    </Link>
-                                </Button>
+                                <Link to="/AjoutLivre">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        size="large"
+                                        className={"button"}
+                                        startIcon={<AddIcon />}
+                                    >
+                                        Nouvelleau livre
+                                    </Button>
+                                </Link>
                             ) : null
                         }
                     </Grid>

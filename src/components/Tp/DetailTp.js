@@ -203,7 +203,7 @@ class DetailTp extends Component {
                         </Typography>
                     </CardContent>
 
-                    <CardContent>
+                    <CardContent className="noselect">
                         <Typography paragraph>Contenu :</Typography>
                             {Parser(contenu)}
                     </CardContent>

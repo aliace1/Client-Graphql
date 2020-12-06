@@ -209,9 +209,9 @@ class Signup extends Component {
                         onChange={this.onChange.bind(this)}
                         />
                     </Grid>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <FormControlLabel control={<Checkbox name="checkedC" />} label="Je confirme que toutes ces information sont vrai" />
-                    </Grid>
+                    </Grid> */}
                     {/* <Grid item md={6}>
                     </Grid> */}
                     <Grid item md={6} xs={12}>

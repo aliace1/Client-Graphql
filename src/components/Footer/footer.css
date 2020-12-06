@@ -30,9 +30,9 @@
     color: #000;
     cursor: pointer;
 }
-/* .col .titre{
+.col .titre{
     color: #fff;
-} */
+}
 
 @media screen and (max-width: 770px){
     .container>.row{
@@ -41,4 +41,14 @@
         justify-content: center;
         align-items: center;
     }
+} 
+
+/* .appBar {
+    bottom: 0;
+    margin-top: auto;
+    max-height: 200px;
 }
+
+p {
+    text-align: left;
+} */

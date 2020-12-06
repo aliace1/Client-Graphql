@@ -41,6 +41,11 @@ class Tp extends Component {
                 query: "query {classes {_id nom} }"
             }
         })
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query: "query {classes {_id nom} }"
+        //     }
+        // })
         .then(({data:{data:{classes}}}) => {
             // console.log(classes[0]);
             this.setState({
@@ -64,7 +69,7 @@ class Tp extends Component {
         .then(({data:{data:{devoirs}}}) => {
             // console.log(e);
             const creator = jwt(localStorage.getItem("Token")).creator
-            const datas = devoirs.filter(e => (e.creator === creator || e.creator === '616c6c50726976696c656765'))
+            const datas = devoirs.filter(e => (e.creator === creator || creator === '616c6c50726976696c656765'))
             this.setState({
                 datas
             })
@@ -72,7 +77,7 @@ class Tp extends Component {
         .catch(err => {
             console.log({err});
         })
-        // axios.post('https://api.fordisco-ius.com/graphql', null, {
+        // axios.post('http://localhost:8000/graphql', null, {
         //     params:{
         //         query: "query{devoirs{_id titre matiere contenu date creator}}"
         //     },
@@ -111,17 +116,17 @@ class Tp extends Component {
                         {
                             localStorage.hasOwnProperty('isAdmin') ? (
                                 localStorage.getItem('isAdmin') === 'y' && 
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    size="large"
-                                    className={"button"}
-                                    startIcon={<AddIcon />}
-                                >
-                                    <Link to="/AjoutTp" >
+                                <Link to="/AjoutTp">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        size="large"
+                                        className={"button"}
+                                        startIcon={<AddIcon />}
+                                    >
                                         Nouveau devoir
-                                    </Link>
-                                </Button>
+                                    </Button>
+                                </Link>
                             ) : null
                         }
                     </Grid>

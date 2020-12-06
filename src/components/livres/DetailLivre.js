@@ -209,7 +209,7 @@ class DetailLivre extends Component {
                             {matiere}
                         </Typography>
                     </CardContent>
-                    <CardContent>
+                    <CardContent className="noselect">
                         <Typography paragraph>Contenu :</Typography>
                             {Parser(contenu)}
                     </CardContent>
