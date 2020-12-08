@@ -95,12 +95,14 @@ class Liste extends Component {
         //     }
         // })
         .then(e=>{
-            // console.log(e)
+            // console.log(e.data.data)
             this.setState({
                 datas:e.data.data.users.filter(e => e.isAjout ==='y')
             })
         })
-        .catch(e=>console.log({e}))
+        .catch(e=>{
+            console.log({e})
+        })
     }
 
     
@@ -110,17 +112,18 @@ class Liste extends Component {
                 query:  "mutation{deleteUser(userId:\""+id+"\"){action}}"
             }
         })
+        // console.log(id);
         // axios.post('http://localhost:8000/graphql', null, {
         //     params:{
         //         query:  "mutation{deleteUser(userId:\""+id+"\"){action}}"
         //     }
         // })
-        .then((e) => {
-            console.log({e});
-            // if(data.deleteUser.action){
-            //     // console.log("returnList");
-            //     this.props.history.push('/Membres')
-            // }
+        .then(({data:{data}}) => {
+            // console.log(e);
+            if(data.deleteUser.action){
+                // console.log("returnList");
+                this.props.history.push('/Membres')
+            }
         })
         .catch(err => {
             console.log({err});
@@ -149,8 +152,9 @@ class Liste extends Component {
                             <TableBody >
                                 {
                                     datas && datas.map(e => {
+                                        // console.log(e);
                                         return(
-                                            <StyledTableRow key={e.id}>
+                                            <StyledTableRow key={e._id}>
                                                 <StyledTableCell align="left"> {e.matricule} </StyledTableCell>
                                                 <StyledTableCell align="left"> {e.nom} </StyledTableCell>
                                                 <StyledTableCell align="left"> {e.prenom} </StyledTableCell>
@@ -158,9 +162,9 @@ class Liste extends Component {
                                                 <StyledTableCell align="left"> {this.setFilter(e.creator)} </StyledTableCell>
                                                 {/* <StyledTableCell align="center"> <i className="fa fa-pencil" /> </StyledTableCell> */}
                                                 <StyledTableCell align="center">
-                                                    <Button onClick={this.handleDelete.bind(this, _id)}>
+                                                    <Button onClick={this.handleDelete.bind(this, e._id)}>
                                                         <i className="fa fa-trash" /> 
-                                                    </Button>
+                                                    </Button> 
                                                 </StyledTableCell>
                                             </StyledTableRow>
                                         )

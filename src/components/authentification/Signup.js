@@ -4,8 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import './Style.css';
 import Typography from "@material-ui/core/Typography";
@@ -63,7 +61,7 @@ class Signup extends Component {
     
     onSubmit(){
         const {nom,prenom,matricule,email,password,creator, creators} = this.state;
-        console.log(this.state);
+        // console.log(this.state);
         axios.post('https://api.fordisco-ius.com/graphql', null, {
             params:{
                 query: "mutation {createUser(userInput:{nom:\""+nom+"\",prenom:\""+prenom+"\",matricule:\""+matricule+"\",email:\""+email+"\",password:\""+password+"\",creator:\""+creator+"\",isAdmin:\"n\",isAjout:\"n\"}){matricule nom prenom email creator}}"
@@ -75,12 +73,11 @@ class Signup extends Component {
         //     params:{
         //         query: "mutation {createUser(userInput:{nom:\""+nom+"\",prenom:\""+prenom+"\",matricule:\""+matricule+"\",email:\""+email+"\",password:\""+password+"\",creator:\""+creator+"\",isAdmin:\"n\",isAjout:\"n\"}){matricule nom prenom email creator}}"
         //     }, 
-        //         headers:{
-        //             Authorization:'Bearer '+localStorage.getItem("Token")
-        //         }
-            
-       
-        }).then(({data:{data:{createUser: {nom,prenom,matricule,email,creator}}}}) => {
+        //     headers:{
+        //         Authorization:'Bearer '+localStorage.getItem("Token")
+        //     }
+        })
+        .then(({data:{data:{createUser: {nom,prenom,matricule,email,creator}}}}) => {
             if(nom && prenom && matricule && email && creator){
                 axios.post('https://api.fordisco-ius.com/graphql',null, { 
                     params: {

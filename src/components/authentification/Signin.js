@@ -25,7 +25,6 @@ class Signin extends Component {
     }
     onSubmit(){
         const {email, password} = this.state
-        console.log(password);
         axios.post('https://api.fordisco-ius.com/graphql',null, { 
             params: {
                 query: "query {login(email:\""+email+"\",password:\""+password+"\"){ userId token isAdmin isAjout} }"
