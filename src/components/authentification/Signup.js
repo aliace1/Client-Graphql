@@ -130,7 +130,7 @@ class Signup extends Component {
         return (
             <div>
             <Navbar history = {this.props.history} />
-            <Paper className={'papper'} elevation={1}>
+            <Paper className={'papper'} elevation={1} id="papier">
                 <Grid container spacing={2}>
                     <Grid item md={12} xs={12}>
                         <Typography variant={'h5'} className={'titre'} align={"center"} color={"primary"}>
@@ -206,23 +206,18 @@ class Signup extends Component {
                         onChange={this.onChange.bind(this)}
                         />
                     </Grid>
-                    {/* <Grid item xs={12}>
-                        <FormControlLabel control={<Checkbox name="checkedC" />} label="Je confirme que toutes ces information sont vrai" />
-                    </Grid> */}
-                    {/* <Grid item md={6}>
-                    </Grid> */}
                     <Grid item md={6} xs={12}>
-                        <Button variant="contained" color="primary" 
-                        onClick={this.onSubmit.bind(this)} fullWidth
-                        >
-                            S'authentifier
-                        </Button>
-                    </Grid>
-                    <Grid item md={6} xs={12}>
-                        <Link to="/Signin">
-                            <p>Déjà membre</p>
-                        </Link>
-                    </Grid>
+                            <Link to="/Signin" className="lien-auth">
+                                <p>Déjà membre</p>
+                            </Link>
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                            <Button variant="contained"
+                            onClick={this.onSubmit.bind(this)} 
+                            color={"primary"} fullWidth>
+                                Créer un compte
+                            </Button>
+                        </Grid>
                 </Grid>
             </Paper>
             </div>

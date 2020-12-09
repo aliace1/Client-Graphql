@@ -134,6 +134,30 @@ class Verification extends Component {
         }
     }
 
+    handleDelete(id){
+        axios.post('https://api.fordisco-ius.com/graphql', null, {
+            params:{
+                query:  "mutation{deleteUser(userId:\""+id+"\"){action}}"
+            }
+        })
+        // console.log(id);
+        // axios.post('http://localhost:8000/graphql', null, {
+        //     params:{
+        //         query:  "mutation{deleteUser(userId:\""+id+"\"){action}}"
+        //     }
+        // })
+        .then(({data:{data}}) => {
+            // console.log(e);
+            if(data.deleteUser.action){
+                // console.log("returnList");
+                this.props.history.push('/Verification')
+            }
+        })
+        .catch(err => {
+            console.log({err});
+        })
+    }
+
     render() {
         const { datas } = this.state;
         return (
@@ -149,7 +173,8 @@ class Verification extends Component {
                                 <StyledTableCell align="left">Prénom</StyledTableCell>
                                 <StyledTableCell align="left">Adresse e-mail</StyledTableCell>
                                 <StyledTableCell align="left">Classe</StyledTableCell>
-                                <StyledTableCell align="center">Action 1</StyledTableCell>
+                                <StyledTableCell align="center">Verification</StyledTableCell>
+                                <StyledTableCell align="center">Suppression</StyledTableCell>
                             </TableRow>
                         </TableHead>
                             <TableBody >
@@ -157,7 +182,7 @@ class Verification extends Component {
                                 {
                                     datas && datas.map(e => {
                                         return(
-                                            <StyledTableRow key={e.id} >
+                                            <StyledTableRow key={e._id} >
                                                 <StyledTableCell align="left"> {e.matricule} </StyledTableCell>
                                                 <StyledTableCell align="left"> {e.nom} </StyledTableCell>
                                                 <StyledTableCell align="left"> {e.prenom} </StyledTableCell>
@@ -173,6 +198,11 @@ class Verification extends Component {
                                                     }
                                                         
                                                     </Grid>
+                                                </StyledTableCell>
+                                                <StyledTableCell align="center">
+                                                    <Button onClick={this.handleDelete.bind(this, e._id)}>
+                                                        <i className="fa fa-trash" /> 
+                                                    </Button> 
                                                 </StyledTableCell>
                                             </StyledTableRow>
                                         )

@@ -67,11 +67,16 @@ class Signin extends Component {
         return (
             <div className="sign-in" theme = {theme}>
                 <Navbar history = {this.props.history} />
-                <Paper elevation={2} className={'papper'}>
+                <Paper elevation={2} className={'papper'} id="papier">
                     <Grid container spacing={2}>
-                        <Typography variant={'h5'} className={'titre'} align={"center"} color={"primary"}>
+                        {/* <Typography variant={'h5'} className={'titre'} align={"center"} color={"primary"}>
                             Connexion
+                        </Typography> */}
+                        <Grid item md={12} xs={12}>
+                        <Typography variant={'h5'} className={'titre'} align={"center"} color={"primary"}>
+                            Connexon
                         </Typography>
+                        </Grid>
                         <Grid item xs={12}>
                             <TextField 
                             id="outlined-basic" 
@@ -100,7 +105,7 @@ class Signin extends Component {
                             </TextField>
                         </Grid>
                         <Grid item md={6} xs={12}>
-                            <Link to="/Signup">
+                            <Link to="/Signup" className="lien-auth">
                                 <p>S'enregistrer</p>
                             </Link>
                         </Grid>

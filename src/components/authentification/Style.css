@@ -16,6 +16,13 @@
     top: 8px !important;
     bottom: 8px !important;
 }
+#papier{
+    margin-top: 4rem !important;
+    margin-bottom: 4rem !important;
+}
+/* .lien-auth p{
+    text-decoration: none;
+} */
 /*.formControl {*/
 /*    margin: auto;*/
 /*}*/
