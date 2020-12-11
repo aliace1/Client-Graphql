@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import axios from 'axios';
 import Navbar from "../Navbar/Navbar";
+import { data } from 'jquery';
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -108,9 +109,11 @@ class Verification extends Component {
         })
         if(verif.length > 0){
             const a = verif[0]
-            console.log(a);
+            // console.log(isAj);
             const isAj = a.isAjout==='y'?'n':'y'
-            const query = "mutation{ updateUser(userId:\""+a._id+"\",nom:\""+a.nom+"\",prenom:\""+a.prenom+"\",matricule:\""+a.matricule+"\",email:\""+a.email+"\",isAdmin:\""+a.isAdmin+"\",isAjout:\""+isAj+"\"){nom prenom matricule email password isAjout creator}}"
+            const isAd = a.isAdmin?a.isAdmin:'n'
+            // console.log(query);
+            const query = "mutation{ updateUser(userId:\""+a._id+"\",nom:\""+a.nom+"\",prenom:\""+a.prenom+"\",matricule:\""+a.matricule+"\",email:\""+a.email+"\",creator:\""+a.creator+"\",isAdmin:\""+isAd+"\",isAjout:\""+isAj+"\"){nom prenom matricule email password isAjout creator}}"
             // console.log(query);
             axios.post('https://api.fordisco-ius.com/graphql', null, {
                 params:{
@@ -123,10 +126,12 @@ class Verification extends Component {
             //     }
             // })
             .then(({data:{data:{updateUser}}}) => {
-                // console.log(data);
-                this.setState({
-                    datas:[...this.state.datas.filter(e => e._id !== id), updateUser]
-                })
+                // console.log({updateUser});
+                if(updateUser){
+                    this.setState({
+                        datas:[...this.state.datas.filter((e) => e._id !== id), updateUser]
+                    })
+                }
             })
             .catch(err => {
                 console.log({err});
@@ -147,8 +152,9 @@ class Verification extends Component {
         //     }
         // })
         .then(({data:{data}}) => {
-            // console.log(e);
+            // console.log(data);
             if(data.deleteUser.action){
+                this.setState({datas: this.state.datas.filter((e) => e._id !== id)})
                 // console.log("returnList");
                 this.props.history.push('/Verification')
             }

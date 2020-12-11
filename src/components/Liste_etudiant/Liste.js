@@ -122,6 +122,7 @@ class Liste extends Component {
             // console.log(e);
             if(data.deleteUser.action){
                 // console.log("returnList");
+                this.setState({datas: this.state.datas.filter((e) => e._id !== id)})
                 this.props.history.push('/Membres')
             }
         })
